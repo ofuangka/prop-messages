@@ -1,3 +1,20 @@
-<p>
-  conversation-list works!
-</p>
+<nav class="top">
+  <a class="nav-item">Edit</a>
+  <span class="title nav-item">Messages</span>
+  <a class="nav-item" (click)="showCreateConversation()">New</a>
+</nav>
+<ul id="conversations">
+  <li *ngFor="let conversation of conversations" (click)="showMessages(conversation)">
+    <div class="row">
+      <img class="icon" [src]="getIconHref(conversation.iconId)" />
+      <div class="text">
+        <div class="heading">
+          <div class="to heading-item">{{ conversation.to }}</div>
+          <div class="last-updated-ts heading-item">{{ conversation.lastUpdatedTs | date }}</div>
+          <i class="right-arrow heading-item"></i>
+        </div>
+        <div class="content">{{ getSummary(conversation) }}</div>
+      </div>
+    </div>
+  </li>
+</ul>

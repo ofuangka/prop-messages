@@ -6,19 +6,22 @@ import { HttpModule } from '@angular/http';
 import { PropMessagesComponent } from './prop-messages.component';
 import { ConversationListComponent } from './conversation-list/conversation-list.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ConversationService } from './conversation.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule
+  ],
   declarations: [
     PropMessagesComponent,
     ConversationListComponent,
     MessagesComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
-  ],
-  providers: [],
+  providers: [ConversationService],
   bootstrap: [PropMessagesComponent]
 })
-export class PropMessagesModule { }
+export class AppModule { }
