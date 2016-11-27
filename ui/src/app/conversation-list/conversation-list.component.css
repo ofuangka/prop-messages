@@ -48,6 +48,13 @@ ul#conversations li {
     color: rgb(142, 142, 142);
     font-size: 0.9em;
 }
-.clearfix {
-    clear: both;
+.label-input {
+    display: flex;
+    flex-direction: column;
+}
+.label-input label {
+    margin-bottom: 2px;
+}
+.modal-footer button {
+    padding: 16px;
 }

@@ -18,11 +18,16 @@
 	</div>
 </div>
 <footer id="send-actions">
-	<button class="action">camera</button>
-	<button class="action">gesture</button>
-	<button class="action">app</button>
+	<div *ngIf="!inputFocused" class="flex">
+		<button>camera</button>
+		<button>gesture</button>
+		<button>app</button>
+	</div>
+	<div class="btn" *ngIf="inputFocused">
+		<arrow></arrow>
+	</div>
 	<div class="action fancy-input">
-		<input class="actual-input" type="text" placeholder="Text Message" />
-		<button>up</button>
+		<input class="actual-input" type="text" [placeholder]="(conversation && conversation.imessage) ? 'iMessage' : 'Text Message'" (focus)="inputFocused = true" (blur)="inputFocused = false" />
+		<button [ngClass]="{'active': inputFocused}">up</button>
 	</div>
 </footer>

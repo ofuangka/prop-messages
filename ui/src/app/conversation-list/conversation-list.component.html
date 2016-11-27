@@ -1,7 +1,7 @@
 <nav id="top">
 	<a class="nav-item">Edit</a>
 	<span class="title nav-item">Messages</span>
-	<a class="nav-item" (click)="showCreateConversation()">New</a>
+	<a class="nav-item" (click)="showCreateConversation = true">New</a>
 </nav>
 <div id="content">
 	<ul id="conversations">
@@ -20,4 +20,17 @@
 			</div>
 		</li>
 	</ul>
+</div>
+<div class="modal" *ngIf="showCreateConversation">
+	<div class="modal-header">Create Conversation</div>
+	<div class="modal-content">
+		<form class="form">
+			<p class="label-input"><label>To:</label><input #to /></p>
+			<p class="text-right"><label><input #imessage class="on-left" type="checkbox" />Use iMessage</label></p>
+		</form>
+	</div>
+	<div class="modal-footer text-right">
+		<button (click)="showCreateConversation = false">Cancel</button>
+		<button (click)="saveConversation(to, imessage)">Save</button>
+	</div>
 </div>

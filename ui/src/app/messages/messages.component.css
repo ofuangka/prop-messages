@@ -30,14 +30,13 @@
     color: white;
 }
 #send-actions {
+    align-items: center;
     bottom: 0;
     display: flex;
     left: 0;
     padding: 8px;
     position: fixed;
     width: 100%;
-}
-#send-actions > .action {
 }
 .fancy-input {
     border: 1px solid lightgray;
@@ -50,6 +49,7 @@
 .fancy-input > .actual-input {
     border: none;
     flex-grow: 1;
+    min-width: 16px;
     padding: 8px;
 }
 .fancy-letter {
