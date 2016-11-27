@@ -41,6 +41,7 @@ ul#conversations li {
     min-width: 0;
 }
 .heading-item.last-updated-ts {
+    margin-right: 8px;
     white-space: nowrap;
 }
 .grayish {

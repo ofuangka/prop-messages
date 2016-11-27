@@ -1,16 +1,28 @@
 <nav id="top">
-  <a class="nav-item" [routerLink]="['/conversations']">Back</a>
-  <span *ngIf="conversation" class="title nav-item"><anonymous class="icon" size="50"></anonymous><br />{{ conversation.to | whom }}</span>
-  <a class="nav-item">i</a>
+	<a class="nav-item" [routerLink]="['/conversations']">
+		<arrow left="true" height="20" width="10" color="rgb(21, 126, 251)"></arrow>
+	</a>
+	<span *ngIf="conversation" class="title nav-item"><anonymous size="50"></anonymous><br />{{ conversation.to | whom }}</span>
+	<a class="nav-item"><strong class="fancy-letter">i</strong></a>
 </nav>
-<div *ngIf="messageGroups" id="content">
-  <div *ngFor="let messageGroup of messageGroups">
-    <div class="timestamp"><strong>{{ messageGroup.ts | friendlyDate: true }}</strong> {{ messageGroup.ts | date: 'h:mm a' }}</div>
-    <div *ngFor="let message of messageGroup.messages" class="message-container">
-      <div [ngClass]="{'message': true, 'outbound': message.outbound}">{{ message.content }}</div>
-    </div>
-  </div>
+<div *ngIf="messageGroups" id="content" [ngClass]="{'imessage': conversation && conversation.protocol === 'imessage'}">
+	<div *ngFor="let messageGroup of messageGroups; let i = index">
+		<div class="timestamp">
+			<strong *ngIf="i === 0">{{ (conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br *ngIf="i === 0"
+			/>
+			<strong>{{ messageGroup.ts | friendlyDate: true }}</strong> {{ messageGroup.ts | date: 'h:mm a' }}
+		</div>
+		<div *ngFor="let message of messageGroup.messages" class="message-container">
+			<div [ngClass]="{'message': true, 'outbound': message.outbound}">{{ message.content }}</div>
+		</div>
+	</div>
 </div>
-<footer>
-  <input type="text" placeholder="Text Message" />
+<footer id="send-actions">
+	<button class="action">camera</button>
+	<button class="action">gesture</button>
+	<button class="action">app</button>
+	<div class="action fancy-input">
+		<input class="actual-input" type="text" placeholder="Text Message" />
+		<button>up</button>
+	</div>
 </footer>

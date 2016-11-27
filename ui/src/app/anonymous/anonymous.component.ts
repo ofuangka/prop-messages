@@ -4,7 +4,7 @@ const DEFAULT_SIZE = 50;
 
 @Component({
   selector: 'anonymous',
-  templateUrl: './anonymous.component.html',
+  template: '<canvas #anonymousCanvas [attr.width]="size" [attr.height]="size"></canvas>',
   styleUrls: ['./anonymous.component.css']
 })
 export class AnonymousComponent implements AfterViewInit {

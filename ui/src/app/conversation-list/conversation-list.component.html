@@ -1,23 +1,23 @@
 <nav id="top">
-  <a class="nav-item">Edit</a>
-  <span class="title nav-item">Messages</span>
-  <a class="nav-item" (click)="showCreateConversation()">New</a>
+	<a class="nav-item">Edit</a>
+	<span class="title nav-item">Messages</span>
+	<a class="nav-item" (click)="showCreateConversation()">New</a>
 </nav>
 <div id="content">
-  <ul id="conversations">
-    <li *ngFor="let conversation of conversations" (click)="showMessages(conversation)">
-      <div class="row">
-        <img *ngIf="conversation.iconId" class="icon" [src]="getIconHref(conversation.iconId)" />
-        <anonymous *ngIf="!conversation.iconId" class="icon" [size]="50"></anonymous>
-        <div class="text">
-          <div class="heading">
-            <div class="to heading-item">{{ conversation.to | ellipsis: 25 }}</div>
-            <div class="last-updated-ts grayish heading-item">{{ conversation.lastUpdatedTs | friendlyDate }}</div>
-            <i class="right-arrow heading-item"></i>
-          </div>
-          <div class="summary grayish">{{ getSummary(conversation) | ellipsis: 70 }}</div>
-        </div>
-      </div>
-    </li>
-  </ul>
+	<ul id="conversations">
+		<li *ngFor="let conversation of conversations" (click)="showMessages(conversation)">
+			<div class="row">
+				<img *ngIf="conversation.iconId" class="icon" [src]="getIconHref(conversation.iconId)" />
+				<anonymous *ngIf="!conversation.iconId" class="icon" [size]="50"></anonymous>
+				<div class="text">
+					<div class="heading">
+						<div class="to heading-item">{{ conversation.to | ellipsis: 25 }}</div>
+						<div class="last-updated-ts grayish heading-item">{{ conversation.lastUpdatedTs | friendlyDate }}</div>
+						<arrow></arrow>
+					</div>
+					<div class="summary grayish">{{ getSummary(conversation) | ellipsis: 70 }}</div>
+				</div>
+			</div>
+		</li>
+	</ul>
 </div>

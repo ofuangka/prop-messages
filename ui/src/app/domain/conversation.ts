@@ -5,4 +5,5 @@ export class Conversation {
     iconId?: string;
     lastUpdatedTs: number;
     createdBy: string;
+    protocol: string;
 }

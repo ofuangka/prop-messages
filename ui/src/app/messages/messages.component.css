@@ -1,5 +1,5 @@
 #content {
-    margin-top: 121px;
+    margin-top: 104px;
     padding: 16px;
 }
 .timestamp {
@@ -13,6 +13,7 @@
     flex-direction: column;
 }
 .message {
+    align-self: flex-start;
     background-color: lightgray;
     border-radius: 16px;
     padding: 8px 16px;
@@ -23,4 +24,39 @@
     align-self: flex-end;
     background-color: limegreen;
     color: white;
+}
+.imessage .message.outbound {
+    background-color: rgb(21, 126, 251); 
+    color: white;
+}
+#send-actions {
+    bottom: 0;
+    display: flex;
+    left: 0;
+    padding: 8px;
+    position: fixed;
+    width: 100%;
+}
+#send-actions > .action {
+}
+.fancy-input {
+    border: 1px solid lightgray;
+    border-radius: 16px;
+    display: flex;
+    flex-grow: 1;
+    margin: 0 16px;
+    padding: 4px;
+}
+.fancy-input > .actual-input {
+    border: none;
+    flex-grow: 1;
+    padding: 8px;
+}
+.fancy-letter {
+    border: 1px solid rgb(21, 126, 251);
+    border-radius: 16px;
+    display: inline-block;
+    font-family: serif;
+    padding: 0 7px;
+
 }
