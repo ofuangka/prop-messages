@@ -1,3 +1,16 @@
-<p>
-  messages works!
-</p>
+<nav id="top">
+  <a class="nav-item" [routerLink]="['/conversations']">Back</a>
+  <span *ngIf="conversation" class="title nav-item"><anonymous class="icon" size="50"></anonymous><br />{{ conversation.to | whom }}</span>
+  <a class="nav-item">i</a>
+</nav>
+<div *ngIf="messageGroups" id="content">
+  <div *ngFor="let messageGroup of messageGroups">
+    <div class="timestamp"><strong>{{ messageGroup.ts | friendlyDate: true }}</strong> {{ messageGroup.ts | date: 'h:mm a' }}</div>
+    <div *ngFor="let message of messageGroup.messages" class="message-container">
+      <div [ngClass]="{'message': true, 'outbound': message.outbound}">{{ message.content }}</div>
+    </div>
+  </div>
+</div>
+<footer>
+  <input type="text" placeholder="Text Message" />
+</footer>

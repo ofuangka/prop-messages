@@ -1,2 +1,2 @@
 # prop-messages
-A web application that generates phone conversations for prop use
+A web application that simulates phone conversations for prop use

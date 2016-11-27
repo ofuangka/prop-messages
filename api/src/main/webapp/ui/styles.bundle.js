@@ -1,15 +1,15 @@
 webpackJsonp([1,2],{
 
-/***/ 372:
+/***/ 374:
 /***/ function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(633);
+var content = __webpack_require__(639);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(660)(content, {});
+var update = __webpack_require__(668)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -27,22 +27,22 @@ if(false) {
 
 /***/ },
 
-/***/ 633:
+/***/ 639:
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(634)();
+exports = module.exports = __webpack_require__(640)();
 // imports
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody {\n    font-family: -apple-system, BlinkMacSystemFont, sans-serif;\n    margin: 0;\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody {\n    font-family: -apple-system, BlinkMacSystemFont, sans-serif;\n    margin: 0;\n}\n#top {\n    background-color: rgb(249, 249, 249);\n    border-bottom: 1px solid rgb(212, 211, 214);\n    display: flex;\n    justify-content: center;\n    position: fixed;\n    top: 0;\n    left: 0;\n    z-index: 9999;\n    width: 100%;\n}\n#top > .nav-item {\n    padding: 16px;\n    flex-grow: 0;\n}\n#top > .title {\n    flex-grow: 1;\n    text-align: center;\n}\n#top > a {\n    color: rgb(21, 126, 251);\n    text-decoration: none;\n}\n.icon {\n    flex-grow: 0;\n    flex-shrink: 0;\n    height: 50px;\n    margin-right: 8px;\n    width: 50px;\n}\nfooter {\n    bottom: 0;\n    left: 0;\n    position: fixed;\n    width: 100%;\n}", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 634:
+/***/ 640:
 /***/ function(module, exports) {
 
 /*
@@ -99,7 +99,7 @@ module.exports = function() {
 
 /***/ },
 
-/***/ 660:
+/***/ 668:
 /***/ function(module, exports) {
 
 /*
@@ -352,13 +352,13 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ 663:
+/***/ 671:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(372);
+module.exports = __webpack_require__(374);
 
 
 /***/ }
 
-},[663]);
+},[671]);
 //# sourceMappingURL=styles.map

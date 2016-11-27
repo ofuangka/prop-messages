@@ -27,11 +27,11 @@ export class ConversationListComponent implements OnInit {
   }
 
   getSummary(conversation: Conversation) {
-    return 'Hello, world!';
+    return 'This is a long summary of a long conversation that may be very long and it will be too long to fit in a single line hopefully I hope that it will just end up working but it probably won\'t';
   }
 
   showMessages(conversation: Conversation) {
-    this.router.navigate(['/conversations/:conversationId', conversation.id]);
+    this.router.navigate(['/conversations', conversation.id]);
   }
 
 }

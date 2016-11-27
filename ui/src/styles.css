@@ -3,3 +3,40 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
 }
+#top {
+    background-color: rgb(249, 249, 249);
+    border-bottom: 1px solid rgb(212, 211, 214);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+}
+#top > .nav-item {
+    padding: 16px;
+    flex-grow: 0;
+}
+#top > .title {
+    flex-grow: 1;
+    text-align: center;
+}
+#top > a {
+    color: rgb(21, 126, 251);
+    text-decoration: none;
+}
+.icon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 50px;
+    margin-right: 8px;
+    width: 50px;
+}
+footer {
+    bottom: 0;
+    display: flex;
+    left: 0;
+    position: fixed;
+    width: 100%;
+}

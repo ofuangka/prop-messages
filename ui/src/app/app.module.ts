@@ -8,6 +8,13 @@ import { ConversationListComponent } from './conversation-list/conversation-list
 import { MessagesComponent } from './messages/messages.component';
 import { ConversationService } from './conversation.service';
 import { AppRoutingModule } from './app-routing.module';
+import { FriendlyDatePipe } from './friendly-date.pipe';
+import { DatePipe, SlicePipe } from '@angular/common';
+import { AnonymousComponent } from './anonymous/anonymous.component';
+import { EllipsisPipe } from './ellipsis.pipe';
+import { MessageService } from './message.service';
+import { MessageGroupService } from './message-group.service';
+import { WhomPipe } from './whom.pipe';
 
 @NgModule({
   imports: [
@@ -19,9 +26,13 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     PropMessagesComponent,
     ConversationListComponent,
-    MessagesComponent
+    MessagesComponent,
+    FriendlyDatePipe,
+    AnonymousComponent,
+    EllipsisPipe,
+    WhomPipe
   ],
-  providers: [ConversationService],
+  providers: [ConversationService, DatePipe, SlicePipe, MessageService, MessageGroupService],
   bootstrap: [PropMessagesComponent]
 })
 export class AppModule { }

@@ -1,38 +1,23 @@
-nav.top {
-    background-color: rgb(249, 249, 249);
-    display: flex;
-    justify-content: space-between;
-}
-nav.top > .nav-item {
-    padding: 16px;
-    flex-grow: 0;
-}
-nav.top > .title {
+#top > .title {
     font-weight: bold;
-    flex-grow: 1;
-    text-align: center;
 }
-nav.top > a {
-    color: rgb(21, 126, 251)
+#content {
+    margin-top: 52px;
 }
 ul#conversations {
+    background-color: white;
     margin: 0;
     padding: 0;
 }
 ul#conversations li {
+    cursor: pointer;
     list-style-type: none;
     padding-left: 32px;
 }
 .row {
     border-bottom: 1px solid rgb(212, 211, 214);
     display: flex;
-    padding: 16px 16px 16px 0;
-}
-.icon {
-    flex-grow: 0;
-    height: 50px;
-    margin-right: 8px;
-    width: 50px;
+    padding: 8px 8px 8px 0;
 }
 .text {
     flex-grow: 1;
@@ -44,16 +29,23 @@ ul#conversations li {
 }
 .heading-item {
     flex-grow: 0;
+    flex-shrink: 0;
 }
 .heading-item.to {
     flex-grow: 1;
+    flex-shrink: 1;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
-.last-updated-ts {
-    color: rgb(142, 142, 142);
+.heading-item.last-updated-ts {
+    white-space: nowrap;
 }
-.content {
+.grayish {
     color: rgb(142, 142, 142);
+    font-size: 0.9em;
 }
 .clearfix {
     clear: both;
