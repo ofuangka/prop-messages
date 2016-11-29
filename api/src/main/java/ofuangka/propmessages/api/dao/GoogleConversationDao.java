@@ -24,6 +24,7 @@ public class GoogleConversationDao extends GoogleDatastoreDao<Conversation> impl
 	private static final String KEY_CREATED_BY = "createdBy";
 	private static final String KEY_ICON_ID = "iconId";
 	private static final String KEY_LAST_UPDATED_TS = "lastUpdatedTs";
+	private static final String KEY_PROTOCOL = "protocol";
 
 	private static GoogleDatastoreEntityMapper<Conversation> mapper = new GoogleDatastoreEntityMapper<Conversation>() {
 
@@ -36,6 +37,7 @@ public class GoogleConversationDao extends GoogleDatastoreDao<Conversation> impl
 			ret.setCreatedBy((String) e.getProperty(KEY_CREATED_BY));
 			ret.setIconId((String) e.getProperty(KEY_ICON_ID));
 			ret.setLastUpdatedTs((Date) e.getProperty(KEY_LAST_UPDATED_TS));
+			ret.setProtocol((String) e.getProperty(KEY_PROTOCOL));
 			return ret;
 		}
 
@@ -46,6 +48,7 @@ public class GoogleConversationDao extends GoogleDatastoreDao<Conversation> impl
 			to.setProperty(KEY_CREATED_BY, from.getCreatedBy());
 			to.setProperty(KEY_ICON_ID, from.getIconId());
 			to.setProperty(KEY_LAST_UPDATED_TS, from.getLastUpdatedTs());
+			to.setProperty(KEY_PROTOCOL, from.getProtocol());
 		}
 
 	};

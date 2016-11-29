@@ -12,9 +12,8 @@ import { Conversation } from '../domain/conversation';
 	styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-
+	showConversationSettings = false;
 	conversation: Conversation;
-
 	messageGroups: MessageGroup[] = [];
 
 	constructor(

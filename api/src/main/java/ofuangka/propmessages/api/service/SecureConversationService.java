@@ -94,7 +94,7 @@ public class SecureConversationService {
 		conversation.setCreatedBy(securityService.getUserId());
 		conversation.setCreatedTs(now);
 		conversation.setLastUpdatedTs(now);
-		return conversation;
+		return conversationDao.create(conversation);
 	}
 
 }

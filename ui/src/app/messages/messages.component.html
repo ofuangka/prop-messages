@@ -1,14 +1,15 @@
-<nav id="top">
+<nav class="flex-header">
 	<a class="nav-item" [routerLink]="['/conversations']">
 		<arrow left="true" height="20" width="10" color="rgb(21, 126, 251)"></arrow>
 	</a>
-	<span *ngIf="conversation" class="title nav-item"><anonymous size="50"></anonymous><br />{{ conversation.to | whom }}</span>
-	<a class="nav-item"><strong class="fancy-letter">i</strong></a>
+	<div *ngIf="conversation" class="nav-item title"><anonymous size="50"></anonymous><br />{{ conversation.to | whom }}</div>
+	<a *ngIf="conversation" class="nav-item text-right" (click)="showConversationSettings = true"><strong class="fancy-letter">i</strong></a>
+	<div *ngIf="!conversation" class="nav-item text-right"></div>
 </nav>
 <div *ngIf="messageGroups" id="content" [ngClass]="{'imessage': conversation && conversation.protocol === 'imessage'}">
 	<div *ngFor="let messageGroup of messageGroups; let i = index">
 		<div class="timestamp">
-			<strong *ngIf="i === 0">{{ (conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br *ngIf="i === 0"
+			<strong *ngIf="conversation && i === 0">{{ (conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br *ngIf="i === 0"
 			/>
 			<strong>{{ messageGroup.ts | friendlyDate: true }}</strong> {{ messageGroup.ts | date: 'h:mm a' }}
 		</div>
@@ -27,7 +28,7 @@
 		<arrow></arrow>
 	</div>
 	<div class="action fancy-input">
-		<input class="actual-input" type="text" [placeholder]="(conversation && conversation.imessage) ? 'iMessage' : 'Text Message'" (focus)="inputFocused = true" (blur)="inputFocused = false" />
+		<input class="actual-input" type="text" [placeholder]="(conversation && conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message'" (focus)="inputFocused = true" (blur)="inputFocused = false" />
 		<button [ngClass]="{'active': inputFocused}">up</button>
 	</div>
 </footer>

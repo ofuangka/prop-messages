@@ -1,11 +1,11 @@
-<nav id="top">
+<nav class="flex-header">
 	<a class="nav-item">Edit</a>
-	<span class="title nav-item">Messages</span>
-	<a class="nav-item" (click)="showCreateConversation = true">New</a>
+	<div class="nav-item title">Messages</div>
+	<a class="nav-item text-right" (click)="showNewMessage = true">New</a>
 </nav>
-<div id="content">
-	<ul id="conversations">
-		<li *ngFor="let conversation of conversations" (click)="showMessages(conversation)">
+<div class="content">
+	<ul *ngIf="!showConversationListLoading" id="conversations">
+		<li *ngFor="let conversation of conversations" (click)="showConversationDetail(conversation)">
 			<div class="row">
 				<img *ngIf="conversation.iconId" class="icon" [src]="getIconHref(conversation.iconId)" />
 				<anonymous *ngIf="!conversation.iconId" class="icon" [size]="50"></anonymous>
@@ -20,17 +20,23 @@
 			</div>
 		</li>
 	</ul>
+	<div *ngIf="showConversationListLoading" class="loading">Loading...</div>
 </div>
-<div class="modal" *ngIf="showCreateConversation">
-	<div class="modal-header">Create Conversation</div>
-	<div class="modal-content">
-		<form class="form">
-			<p class="label-input"><label>To:</label><input #to /></p>
-			<p class="text-right"><label><input #imessage class="on-left" type="checkbox" />Use iMessage</label></p>
+<div class="modal" *ngIf="showNewMessage">
+	<nav class="flex-header">
+		<a class="nav-item" (click)="showNewMessage = false">Cancel</a>
+		<div class="nav-item title">New Message</div>
+		<a *ngIf="!showNewMessageLoading" class="nav-item text-right" (click)="to.value && to.value.length > 0 && saveNewMessage(to.value, imessage.checked)">Save</a>
+		<a *ngIf="showNewMessageLoading" class="nav-item text-right">Loading...</a>
+	</nav>
+	<div class="content">
+		<form id="new-message-form" class="form">
+			<div id="to-line">
+				<label class="to-item">To:</label><input #to class="to-item" />
+			</div>
+			<div class="text-right">
+				<label class="checkbox-label"><input #imessage type="checkbox" class="on-right" />Use iMessage</label>
+			</div>
 		</form>
-	</div>
-	<div class="modal-footer text-right">
-		<button (click)="showCreateConversation = false">Cancel</button>
-		<button (click)="saveConversation(to, imessage)">Save</button>
 	</div>
 </div>

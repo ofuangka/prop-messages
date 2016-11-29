@@ -3,7 +3,11 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
 }
-#top {
+a {
+    color: rgb(21, 126, 251);
+    text-decoration: none;
+}
+.flex-header {
     background-color: rgb(249, 249, 249);
     border-bottom: 1px solid rgb(212, 211, 214);
     display: flex;
@@ -14,17 +18,16 @@ body {
     z-index: 9999;
     width: 100%;
 }
-#top > .nav-item {
+.flex-header > .nav-item {
     padding: 16px;
-    flex-grow: 0;
-}
-#top > .title {
+    flex-basis: 0;
     flex-grow: 1;
+}
+.title {
     text-align: center;
 }
-#top > a {
-    color: rgb(21, 126, 251);
-    text-decoration: none;
+.flex-header > .title {
+    flex-grow: 2;
 }
 .icon {
     flex-grow: 0;
@@ -39,34 +42,14 @@ input:focus, select:focus, textarea:focus, button:focus {
 .modal {
     background-color: white;
     border: 1px solid rgb(212, 211, 214);
-    border-radius: 8px;
-    left: 1%;
+    height: 100%;
     position: fixed;
-    top: 8px;
-    width: 98%;
+    top: 0;
+    width: 100%;
     z-index: 9999;
 }
 .modal-header, .modal-content, .modal-footer {
     padding: 16px;
-}
-.modal-header {
-    background-color: rgb(249, 249, 249);
-    border-radius: 8px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom: 1px solid rgb(212, 211, 214);
-}
-input.on-left {
-    margin-right: 8px;
-}
-input.on-right {
-    margin-left: 8px;
-}
-.form input {
-    padding: 8px;
-}
-.form label {
-    font-size: 0.8em;
 }
 .flex {
     display: flex;

@@ -1,8 +1,8 @@
-#top > .title {
+.title {
     font-weight: bold;
 }
-#content {
-    margin-top: 52px;
+.content {
+    margin-top: 50px;
 }
 ul#conversations {
     background-color: white;
@@ -55,6 +55,31 @@ ul#conversations li {
 .label-input label {
     margin-bottom: 2px;
 }
-.modal-footer button {
+#to-line {
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+}
+#to-line > .to-item {
+    padding: 16px;
+}
+#to-line > label {
+    color: gray;
+}
+#to-line > input {
+    background-color: lightgray;
+    border: none;
+    flex-grow: 1;
+    width: 0;
+}
+.checkbox-label {
+    display: inline-block;
+    padding: 16px;
+}
+.checkbox-label > input {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.loading {
     padding: 16px;
 }
