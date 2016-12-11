@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Message } from './domain/message';
 
-const TODAY = new Date();
-const MESSAGES: Message[] = [
-  { id: '1', conversationId: '1', createdBy: 'ofuangka', createdTs: TODAY.getTime(), ts: TODAY.getTime(), content: 'This is a test message', outbound: true, lastUpdatedTs: TODAY.getTime() },
-  { id: '1', conversationId: '1', createdBy: 'ofuangka', createdTs: TODAY.getTime(), ts: TODAY.getTime(), content: 'This is another message', outbound: false, lastUpdatedTs: TODAY.getTime() }
-];
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class MessageService {
 
-  constructor() { }
+	constructor(private http: Http) { }
 
-  list(conversationId: string): Promise<Message[]> {
-    return new Promise((resolve, reject) => resolve(MESSAGES));
-  }
+	list(conversationId: string): Promise<Message[]> {
+		return this.http.get(`/api/messages?cid=${conversationId}`).toPromise().then(response => response.json());
+	}
+
+	create(messageContent: string, conversationId: string): Promise<Message> {
+		return this.http.post('/api/messages', { content: messageContent, conversationId: conversationId }).toPromise().then(response => response.json());
+	}
+
+	delete(message: Message): Promise<Message> {
+		return this.http.delete(`/api/messages/${message.id}`).toPromise().then(response => response.json());
+	}
 
 }

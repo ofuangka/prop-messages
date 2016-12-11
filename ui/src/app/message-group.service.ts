@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { MessageService } from './message.service';
 import { MessageGroup } from './domain/message-group';
+import { Message } from './domain/message';
 
 @Injectable()
 export class MessageGroupService {
 
-  constructor(private messageService: MessageService) { }
-
-  list(conversationId: string): Promise<MessageGroup[]> {
-    return this.messageService.list(conversationId).then((messages) => [{
-      ts: new Date().getTime(),
-      messages: messages
-    }]);
-  }
+	group(messages: Message[], threshold: number): MessageGroup[] {
+		var ret: MessageGroup[] = [], currGroup: MessageGroup, i: number;
+		for (i = 0; i < messages.length; i++) {
+			if (!currGroup || (messages[i].ts - currGroup.ts > threshold)) {
+				currGroup = {
+					ts: messages[i].ts,
+					messages: [messages[i]]
+				};
+				ret.push(currGroup);
+			} else {
+				currGroup.messages.push(messages[i]);
+			}
+		}
+		return ret;
+	}
 
 }

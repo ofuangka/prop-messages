@@ -11,6 +11,8 @@ import ofuangka.propmessages.api.support.HasId;
 
 public class Message extends HasId {
 
+	@NotNull
+	@NotBlank
 	private String conversationId;
 	private String createdBy;
 	private Date createdTs;

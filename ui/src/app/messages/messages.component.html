@@ -2,33 +2,44 @@
 	<a class="nav-item" [routerLink]="['/conversations']">
 		<arrow left="true" height="20" width="10" color="rgb(21, 126, 251)"></arrow>
 	</a>
-	<div *ngIf="conversation" class="nav-item title"><anonymous size="50"></anonymous><br />{{ conversation.to | whom }}</div>
+	<div *ngIf="conversation" class="nav-item title">
+		<anonymous size="50"></anonymous><br />{{ conversation.to | whom }}</div>
 	<a *ngIf="conversation" class="nav-item text-right" (click)="showConversationSettings = true"><strong class="fancy-letter">i</strong></a>
 	<div *ngIf="!conversation" class="nav-item text-right"></div>
 </nav>
-<div *ngIf="messageGroups" id="content" [ngClass]="{'imessage': conversation && conversation.protocol === 'imessage'}">
-	<div *ngFor="let messageGroup of messageGroups; let i = index">
+<div *ngIf="messageGroups" id="content" (click)="selectedMessage = null" [ngClass]="{'imessage': conversation && conversation.protocol === 'imessage'}">
+	<div *ngFor="let messageGroup of messageGroups | before: groupCursor">
 		<div class="timestamp">
-			<strong *ngIf="conversation && i === 0">{{ (conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br *ngIf="i === 0"
-			/>
+			<strong *ngIf="index === 0">{{ (conversation && conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br
+				*ngIf="index === 0" />
 			<strong>{{ messageGroup.ts | friendlyDate: true }}</strong> {{ messageGroup.ts | date: 'h:mm a' }}
 		</div>
-		<div *ngFor="let message of messageGroup.messages" class="message-container">
-			<div [ngClass]="{'message': true, 'outbound': message.outbound}">{{ message.content }}</div>
+		<div *ngFor="let message of messageGroup.messages | before: messageCursor" class="message-container">
+			<div (click)="selectedMessage = message; $event.stopPropagation()" [ngClass]="{'message': true, 'outbound': message.outbound, 'active': selectedMessage === message}">{{ message.content }}</div>
 		</div>
 	</div>
 </div>
-<footer id="send-actions">
-	<div *ngIf="!inputFocused" class="flex">
-		<button>camera</button>
-		<button>gesture</button>
-		<button>app</button>
+<footer *ngIf="!selectedMessage">
+	<div *ngIf="!inputFocused" class="flex-links">
+		<a class="links-item">Camera</a>
+		<a class="links-item">Gesture</a>
+		<a class="links-item">App</a>
 	</div>
-	<div class="btn" *ngIf="inputFocused">
+	<a *ngIf="inputFocused">
 		<arrow></arrow>
-	</div>
+	</a>
 	<div class="action fancy-input">
-		<input class="actual-input" type="text" [placeholder]="(conversation && conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message'" (focus)="inputFocused = true" (blur)="inputFocused = false" />
-		<button [ngClass]="{'active': inputFocused}">up</button>
+		<input #messageContent class="actual-input" type="text" [placeholder]="(conversation && conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message'"
+			(focus)="inputFocused = true" (blur)="inputFocused = false" />
+		<a [ngClass]="{'active': inputFocused}" (click)="sendMessage(messageContent.value); messageContent.value = ''">up</a>
 	</div>
+</footer>
+<footer *ngIf="selectedMessage" class="flex-links">
+	<a class="links-item" (click)="selectedMessage = null">Cancel</a>
+	<a class="links-item" (click)="toggleOutbound(selectedMessage)">{{ selectedMessage.outbound ? 'Move left' : 'Move right' }}</a>
+	<a class="links-item" (click)="deleteMessage(selectedMessage)">Delete</a>
+	<a class="links-item" (click)="rewind(selectedMessage)">Rewind</a>
+	<div class="links-item spacer"></div>
+	<a class="links-item" (click)="fastForward()">Fast forward</a>
+	<a class="links-item" (click)="save()">Save</a>
 </footer>

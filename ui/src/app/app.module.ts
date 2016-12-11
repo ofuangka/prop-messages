@@ -16,6 +16,7 @@ import { MessageService } from './message.service';
 import { MessageGroupService } from './message-group.service';
 import { WhomPipe } from './whom.pipe';
 import { ArrowComponent } from './arrow/arrow.component';
+import { BeforePipe } from './before.pipe';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { ArrowComponent } from './arrow/arrow.component';
     AnonymousComponent,
     EllipsisPipe,
     WhomPipe,
-    ArrowComponent
+    ArrowComponent,
+    BeforePipe
   ],
   providers: [ConversationService, DatePipe, SlicePipe, MessageService, MessageGroupService],
   bootstrap: [PropMessagesComponent]

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -15,6 +16,7 @@ import ofuangka.propmessages.api.domain.Conversation;
 import ofuangka.propmessages.api.domain.Message;
 import ofuangka.propmessages.api.security.SecurityService;
 
+@Named
 public class SecureMessageService {
 
 	@Inject

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
@@ -13,6 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import ofuangka.propmessages.api.domain.Message;
 import ofuangka.propmessages.api.service.SecureMessageService;
@@ -28,7 +31,7 @@ public class MessageCollectionResource {
 	private SecureMessageService secureMessageService;
 
 	@GET
-	public List<Message> list(@QueryParam("cid") String conversationId) {
+	public List<Message> list(@NotBlank @NotNull @QueryParam("cid") String conversationId) {
 		return secureMessageService.getByConversationId(conversationId);
 	}
 
