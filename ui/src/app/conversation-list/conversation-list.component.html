@@ -4,7 +4,7 @@
 	<a class="nav-item text-right" (click)="showNewMessage = true">New</a>
 </nav>
 <div class="content">
-	<ul *ngIf="!showConversationListLoading" id="conversations">
+	<ul *ngIf="!showConversationListLoading" class="table">
 		<li *ngFor="let conversation of conversations" (click)="showConversationDetail(conversation)">
 			<div class="row">
 				<img *ngIf="conversation.iconId" class="icon" [src]="getIconHref(conversation.iconId)" />
@@ -15,7 +15,7 @@
 						<div class="last-updated-ts grayish heading-item">{{ conversation.lastUpdatedTs | friendlyDate }}</div>
 						<arrow></arrow>
 					</div>
-					<div class="summary grayish">{{ getSummary(conversation) | ellipsis: 70 }}</div>
+					<div class="summary grayish">{{ conversation.summary | ellipsis: 60 }}</div>
 				</div>
 			</div>
 		</li>
@@ -24,9 +24,9 @@
 </div>
 <div class="modal" *ngIf="showNewMessage">
 	<nav class="flex-header">
-		<a class="nav-item" (click)="showNewMessage = false">Cancel</a>
+		<a class="nav-item" (click)="imessage = false; showNewMessage = false">Cancel</a>
 		<div class="nav-item title">New Message</div>
-		<a *ngIf="!showNewMessageLoading" class="nav-item text-right" (click)="to.value && to.value.length > 0 && saveNewMessage(to.value, imessage.checked)">Save</a>
+		<a *ngIf="!showNewMessageLoading" class="nav-item text-right" (click)="to.value && to.value.length > 0 && saveNewMessage(to.value, imessage)">Save</a>
 		<a *ngIf="showNewMessageLoading" class="nav-item text-right">Loading...</a>
 	</nav>
 	<div class="content">
@@ -34,9 +34,14 @@
 			<div id="to-line">
 				<label class="to-item">To:</label><input #to class="to-item" />
 			</div>
-			<div class="text-right">
-				<label class="checkbox-label"><input #imessage type="checkbox" class="on-right" />Use iMessage</label>
-			</div>
+			<ul class="table">
+				<li>
+					<div class="row setting">
+						<label>Use iMessage</label>
+						<i [ngClass]="{'switch': true, 'on': imessage}" (click)="imessage = !imessage"><i class="peg"></i></i>
+					</div>
+				</li>
+			</ul>
 		</form>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 #content {
-    margin-top: 104px;
     padding: 16px;
+    padding-bottom: 120px;
+    padding-top: 120px;
 }
 .timestamp {
     color: gray;
@@ -8,26 +9,25 @@
     margin-bottom: 8px;
     text-align: center;
 }
-.message-container {
-    display: flex;
-    flex-direction: column;
-}
 .message {
     align-self: flex-start;
     background-color: lightgray;
     border: 1px solid white;
     border-radius: 16px;
+    float: left;
     padding: 8px 16px;
     margin-bottom: 8px;
     max-width: 250px;
 }
 .message.active {
-    border: 1px solid black;
+    border-color: black;
+    box-shadow: 1px 1px 1px 1px #666;
 }
 .outbound {
     align-self: flex-end;
     background-color: limegreen;
     color: white;
+    float: right;
 }
 .imessage .message.outbound {
     background-color: rgb(21, 126, 251); 
@@ -35,10 +35,13 @@
 }
 footer {
     align-items: center;
+    justify-content: space-around;
     background-color: white;
     bottom: 0;
     display: flex;
     left: 0;
+    min-height: 38px;
+    padding-top: 8px;
     padding-bottom: 8px;
     position: fixed;
     width: 100%;
@@ -46,19 +49,20 @@ footer {
 .fancy-input {
     align-items: center;
     border: 1px solid lightgray;
-    border-radius: 16px;
+    border-radius: 25px;
     display: flex;
     flex-grow: 1;
     flex-shrink: 1;
     margin: 0 16px;
-    padding: 4px;
+    padding: 3px;
 }
 .fancy-input > .actual-input {
+    background-color: transparent;
     border: none;
     flex-grow: 1;
     flex-shrink: 1;
     width: 0;
-    padding: 8px;
+    padding: 0 8px;
 }
 .fancy-letter {
     border: 1px solid rgb(21, 126, 251);
@@ -71,9 +75,43 @@ footer {
 .flex-links {
     display: flex;
 }
-.links-item {
-    padding: 8px;
-}
 .spacer {
     flex-grow: 1;
+}
+.rounded-rect,
+.apps-icon,
+.gesture-icon,
+.camera-icon,
+.rewind-icon,
+.ff-icon,
+.move-icon,
+.delete-icon,
+.send-icon {
+    background-color: rgb(133, 142, 153);
+    display: inline-block;
+    height: 25px;
+    margin-left: 16px;
+    width: 30px;
+}
+.rounded-rect, .camera-icon, .rewind-icon, .ff-icon {
+    border-radius: 5px;
+}
+.apps-icon, .gesture-icon, .move-icon {
+    border-radius: 25px;
+}
+.send-icon, .delete-icon {
+    border-radius: 25px;
+    height: 30px;
+}
+.send-icon.active {
+    background-color: limegreen;
+}
+.send-icon.active.imessage {
+    background-color: rgb(21, 126, 251);
+}
+footer > i:last-child {
+    margin-right: 16px;
+}
+.disabled {
+    opacity: 0.5;
 }

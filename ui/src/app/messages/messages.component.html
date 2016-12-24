@@ -7,39 +7,39 @@
 	<a *ngIf="conversation" class="nav-item text-right" (click)="showConversationSettings = true"><strong class="fancy-letter">i</strong></a>
 	<div *ngIf="!conversation" class="nav-item text-right"></div>
 </nav>
-<div *ngIf="messageGroups" id="content" (click)="selectedMessage = null" [ngClass]="{'imessage': conversation && conversation.protocol === 'imessage'}">
-	<div *ngFor="let messageGroup of messageGroups | before: groupCursor">
-		<div class="timestamp">
+<div *ngIf="messages" id="content" (click)="selectedMessage = null" [ngClass]="{'imessage': conversation && conversation.protocol === 'imessage'}">
+	<div *ngFor="let message of messages | before: playbackIndex" class="message-container">
+		<div *ngIf="message.ts" class="timestamp">
 			<strong *ngIf="index === 0">{{ (conversation && conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br
 				*ngIf="index === 0" />
-			<strong>{{ messageGroup.ts | friendlyDate: true }}</strong> {{ messageGroup.ts | date: 'h:mm a' }}
+			<strong>{{ message.ts | friendlyDate: true }}</strong> {{ message.ts | date: 'h:mm a' }}
 		</div>
-		<div *ngFor="let message of messageGroup.messages | before: messageCursor" class="message-container">
-			<div (click)="selectedMessage = message; $event.stopPropagation()" [ngClass]="{'message': true, 'outbound': message.outbound, 'active': selectedMessage === message}">{{ message.content }}</div>
-		</div>
+		<div (click)="isRecording() && (selectedMessage = message); $event.stopPropagation()" [ngClass]="{'message': true, 'outbound': message.outbound, 'active': selectedMessage === message}">{{ message.content }}</div>
+		<callout left="!message.outbound"></callout>
+		<div class="clearfix"></div>
+	</div>
+	<div *ngIf="isReceivingMessage" class="message-container">
+		<div class="message">...</div>
+		<div class="clearfix"></div>
 	</div>
 </div>
 <footer *ngIf="!selectedMessage">
 	<div *ngIf="!inputFocused" class="flex-links">
-		<a class="links-item">Camera</a>
-		<a class="links-item">Gesture</a>
-		<a class="links-item">App</a>
+		<i class="camera-icon links-item"></i>
+		<i class="gesture-icon links-item"></i>
+		<i class="apps-icon links-item"></i>
 	</div>
-	<a *ngIf="inputFocused">
-		<arrow></arrow>
-	</a>
-	<div class="action fancy-input">
+	<i *ngIf="inputFocused" class="rounded-rect"></i>
+	<div class="fancy-input">
 		<input #messageContent class="actual-input" type="text" [placeholder]="(conversation && conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message'"
-			(focus)="inputFocused = true" (blur)="inputFocused = false" />
-		<a [ngClass]="{'active': inputFocused}" (click)="sendMessage(messageContent.value); messageContent.value = ''">up</a>
+			(focus)="inputFocused = true" (blur)="inputFocused = false" [disabled]="isReceivingMessage" />
+		<i [ngClass]="{'active': inputFocused, 'send-icon': true, 'imessage': (conversation && conversation.protocol === 'imessage')}"
+			(click)="sendMessage(messageContent.value); messageContent.value = ''"></i>
 	</div>
 </footer>
 <footer *ngIf="selectedMessage" class="flex-links">
-	<a class="links-item" (click)="selectedMessage = null">Cancel</a>
-	<a class="links-item" (click)="toggleOutbound(selectedMessage)">{{ selectedMessage.outbound ? 'Move left' : 'Move right' }}</a>
-	<a class="links-item" (click)="deleteMessage(selectedMessage)">Delete</a>
-	<a class="links-item" (click)="rewind(selectedMessage)">Rewind</a>
-	<div class="links-item spacer"></div>
-	<a class="links-item" (click)="fastForward()">Fast forward</a>
-	<a class="links-item" (click)="save()">Save</a>
+	<i [ngClass]="{'links-item': true, 'move-icon': true, 'left': selectedMessage.outbound, 'disabled': isPlayback()}" (click)="isRecording() && toggleOutbound(selectedMessage)"></i>
+	<i [ngClass]="{'delete-icon': true, 'links-item': true, 'disabled': isPlayback()}" (click)="isRecording() && deleteMessage(selectedMessage)"></i>
+	<i [ngClass]="{'rewind-icon': true, 'links-item': true, 'disabled': isPlayback()}" (click)="isRecording() && rewind(selectedMessage)"></i>
+	<i [ngClass]="{'ff-icon': true, 'links-item': true, 'disabled': isRecording()}" (click)="isPlayback() && fastForward()"></i>
 </footer>

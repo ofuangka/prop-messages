@@ -2,14 +2,14 @@
     font-weight: bold;
 }
 .content {
-    margin-top: 50px;
+    padding-top: 50px;
 }
-ul#conversations {
+ul.table {
     background-color: white;
     margin: 0;
     padding: 0;
 }
-ul#conversations li {
+ul.table > li {
     cursor: pointer;
     list-style-type: none;
     padding-left: 32px;
@@ -63,6 +63,9 @@ ul#conversations li {
 #to-line > .to-item {
     padding: 16px;
 }
+#to-line > .to-item:last {
+    padding-left: 0;
+}
 #to-line > label {
     color: gray;
 }
@@ -72,14 +75,35 @@ ul#conversations li {
     flex-grow: 1;
     width: 0;
 }
-.checkbox-label {
-    display: inline-block;
-    padding: 16px;
-}
-.checkbox-label > input {
-    margin-right: 8px;
-    vertical-align: middle;
-}
 .loading {
     padding: 16px;
+}
+.row.setting {
+    align-items: center;
+    padding: 16px 16px 16px 0;
+}
+.row.setting > label {
+    flex-grow: 1;
+}
+.switch {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    width: 50px;
+}
+.switch.on {
+    background-color: limegreen;
+    border-color: limegreen;
+    justify-content: flex-end;
+}
+.peg {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 25px;
+    height: 25px;
 }

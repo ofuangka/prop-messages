@@ -9,4 +9,5 @@ public interface MessageDao {
 	Message create(Message m);
 	Message update(Message m);
 	Message delete(String messageId);
+	Message get(String messageId);
 }

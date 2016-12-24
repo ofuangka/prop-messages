@@ -4,7 +4,7 @@ const DEFAULT_SIZE = 50;
 
 @Component({
   selector: 'anonymous',
-  template: '<canvas #anonymousCanvas [attr.width]="size" [attr.height]="size"></canvas>',
+  template: '<canvas #anonymousCanvas class="anonymous" [attr.width]="size" [attr.height]="size"></canvas>',
   styleUrls: ['./anonymous.component.css']
 })
 export class AnonymousComponent implements AfterViewInit {
@@ -21,7 +21,7 @@ export class AnonymousComponent implements AfterViewInit {
     let context = this.canvas.nativeElement.getContext('2d'),
       centerX = this.size / 2,
       centerY = this.size / 2,
-      radius = centerX - 1,
+      radius = centerX,
       grayGradient = context.createLinearGradient(0, 0, 0, this.size);
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);

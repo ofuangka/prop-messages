@@ -13,10 +13,10 @@ import { DatePipe, SlicePipe } from '@angular/common';
 import { AnonymousComponent } from './anonymous/anonymous.component';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { MessageService } from './message.service';
-import { MessageGroupService } from './message-group.service';
 import { WhomPipe } from './whom.pipe';
 import { ArrowComponent } from './arrow/arrow.component';
 import { BeforePipe } from './before.pipe';
+import { CalloutComponent } from './callout/callout.component';
 
 @NgModule({
   imports: [
@@ -34,9 +34,10 @@ import { BeforePipe } from './before.pipe';
     EllipsisPipe,
     WhomPipe,
     ArrowComponent,
-    BeforePipe
+    BeforePipe,
+    CalloutComponent
   ],
-  providers: [ConversationService, DatePipe, SlicePipe, MessageService, MessageGroupService],
+  providers: [ConversationService, DatePipe, SlicePipe, MessageService],
   bootstrap: [PropMessagesComponent]
 })
 export class AppModule { }

@@ -1,10 +1,10 @@
 export class Message {
-    id: string;
+    id?: string;
     conversationId: string;
-    createdBy: string;
-    createdTs: number;
-    ts: number;
+    createdBy?: string;
+    createdTs?: number;
+    ts?: number;
     content: string;
     outbound: boolean;
-    lastUpdatedTs: number;
+    lastUpdatedTs?: number;
 }

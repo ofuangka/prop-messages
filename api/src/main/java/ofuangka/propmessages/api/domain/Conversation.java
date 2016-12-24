@@ -20,6 +20,7 @@ public class Conversation extends HasId {
 	private Date createdTs;
 	private String iconId;
 	private Date lastUpdatedTs;
+	private String summary;
 
 	@Pattern(regexp = "[a-z]+")
 	private String protocol;
@@ -70,6 +71,14 @@ public class Conversation extends HasId {
 
 	public void setProtocol(String protocol) {
 		this.protocol = protocol;
+	}
+	
+	public String getSummary() {
+		return this.summary;
+	}
+	
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 }

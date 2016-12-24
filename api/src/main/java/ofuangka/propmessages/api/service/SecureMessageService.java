@@ -90,6 +90,18 @@ public class SecureMessageService {
 			throw new SecurityException();
 		}
 	}
+	
+	public Message tryDelete(String messageId) throws SecurityException {
+		Message candidate = messageDao.get(messageId);
+		if (candidate != null) {
+			if (StringUtils.equals(securityService.getUserId(), candidate.getCreatedBy())) {
+				return messageDao.delete(messageId);
+			} else {
+				throw new SecurityException();
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Returns {@link List} of {@link Message} for the conversationId that the

@@ -19,7 +19,6 @@ export class ConversationListComponent implements OnInit {
 
 	ngOnInit() {
 		this.conversationService.list().then((conversations) => {
-			console.log(conversations);
 			this.conversations = conversations;
 			this.showConversationListLoading = false;
 		});
@@ -27,10 +26,6 @@ export class ConversationListComponent implements OnInit {
 
 	getIconHref(iconId: string) {
 		return iconId;
-	}
-
-	getSummary(conversation: Conversation) {
-		return 'This is a long summary of a long conversation that may be very long and it will be too long to fit in a single line hopefully I hope that it will just end up working but it probably won\'t';
 	}
 
 	showConversationDetail(conversation: Conversation) {

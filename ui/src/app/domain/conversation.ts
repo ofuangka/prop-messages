@@ -6,4 +6,5 @@ export class Conversation {
     lastUpdatedTs: number;
     createdBy: string;
     protocol: string;
+    summary?: string;
 }

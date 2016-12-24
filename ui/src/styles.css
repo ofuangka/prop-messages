@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+}
 body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
@@ -6,6 +9,9 @@ body {
 a {
     color: rgb(21, 126, 251);
     text-decoration: none;
+}
+input {
+    font-size: 12pt;
 }
 .flex-header {
     background-color: rgb(249, 249, 249);
@@ -56,4 +62,10 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 .text-right {
     text-align: right;
+}
+.hidden {
+    visibility: hidden;
+}
+.pull-right {
+    float: right;
 }
