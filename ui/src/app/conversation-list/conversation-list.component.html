@@ -6,10 +6,11 @@
 </header>
 <section class="below-header-sm">
 	<ul *ngIf="!isLoading" class="ui-table-view">
-		<li *ngIf="conversations && conversations.length === 0">No conversations</li>
+		<li *ngIf="conversations && conversations.length === 0">
+			<div class="row">No messages</div>
+		</li>
 		<li *ngFor="let conversation of conversations" (click)="!isEditing && showMessages(conversation)">
-			<a (click)="isEditing && conversationsToDelete.indexOf(conversation) === -1 && delete(conversation)" class="gutter-link"
-				[ngClass]="{'disabled': conversationToDelete.indexOf(conversation) !== -1}"><i *ngIf="isEditing" class="delete">x</i></a>
+			<a (click)="isEditing && !isDeletingConversation(conversation) && delete(conversation)" class="gutter-link" [ngClass]="{'disabled': isDeletingConversation(conversation)}"><i *ngIf="isEditing" class="delete">x</i></a>
 			<div class="row">
 				<anonymous [size]="40" [initials]="conversation.to | initials"></anonymous>
 				<div class="conversation-summary">

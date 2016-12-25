@@ -13,7 +13,6 @@ export class ConversationListComponent implements OnInit {
 	showNewConversation = false;
 	isSavingConversation = false;
 	conversationsToDelete: Conversation[] = [];
-
 	conversations: Conversation[];
 
 	constructor(private conversationService: ConversationService, private router: Router) { }
@@ -54,6 +53,10 @@ export class ConversationListComponent implements OnInit {
 
 	showErrorMessage(message) {
 		// TODO: implement
+	}
+
+	isDeletingConversation(conversation: Conversation): boolean {
+		return this.conversationsToDelete.indexOf(conversation) !== -1;
 	}
 
 }
