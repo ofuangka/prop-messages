@@ -6,15 +6,16 @@
 </header>
 <section class="below-header-sm">
 	<ul *ngIf="!isLoading" class="ui-table-view">
-		<li *ngIf="conversation && conversation.length">No conversations</li>
+		<li *ngIf="conversations && conversations.length === 0">No conversations</li>
 		<li *ngFor="let conversation of conversations" (click)="!isEditing && showMessages(conversation)">
-			<a (click)="isEditing && delete(conversation)" class="gutter-link"><i *ngIf="isEditing" class="delete">x</i></a>
+			<a (click)="isEditing && conversationsToDelete.indexOf(conversation) === -1 && delete(conversation)" class="gutter-link"
+				[ngClass]="{'disabled': conversationToDelete.indexOf(conversation) !== -1}"><i *ngIf="isEditing" class="delete">x</i></a>
 			<div class="row">
 				<anonymous [size]="40" [initials]="conversation.to | initials"></anonymous>
 				<div class="conversation-summary">
 					<div class="details">
 						<strong class="to-whom">{{ conversation.to | ellipsis: 25 }}</strong>
-						<span class="last-updated-ts">{{ conversation.lastUpdatedTs | friendlyDate }}</span>
+						<small class="last-updated-ts">{{ conversation.lastUpdatedTs | friendlyDate }}</small>
 						<arrow></arrow>
 					</div>
 					<div>{{ conversation.summary | ellipsis: 60 }}</div>

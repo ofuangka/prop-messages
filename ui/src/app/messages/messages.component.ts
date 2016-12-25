@@ -17,14 +17,17 @@ export class MessagesComponent implements OnInit {
 	realMessages: Message[] = [];
 	messages: Message[] = [];
 	isReceivingMessage = false;
-	minKeyMs = 100;
-	maxKeyMs = 200;
-	minReadMessageMs = 1000;
-	maxReadMessageMs = 2000;
+	minKeyMs = 50;
+	maxKeyMs = 150;
+	minReadMessageMs = 500;
+	maxReadMessageMs = 1000;
 	editTo: string;
 	editImessage: boolean;
 	showEditConversation = false;
 	isSavingConversation = false;
+	isSendingMessage = false;
+	messagesToDelete: Message[] = [];
+	messagesToMove: Message[] = [];
 	constructor(
 		private messageService: MessageService,
 		private route: ActivatedRoute,
@@ -54,8 +57,10 @@ export class MessagesComponent implements OnInit {
 	 */
 	toggleOutbound(message: Message) {
 		if (this.isRealMessage(message)) {
+			this.messagesToMove.push(message);
 			this.messageService.update(Object.assign({}, message, { outbound: !(message.outbound) })).then(updatedMessage => {
 				message.outbound = updatedMessage.outbound;
+				this.messagesToMove.splice(this.messagesToMove.indexOf(message), 1);
 			});
 		}
 	}
@@ -83,8 +88,10 @@ export class MessagesComponent implements OnInit {
 
 			/* we delete the message by calling the service. once that is successful, 
 			we can delete it from memory */
+			this.messagesToDelete.push(message);
 			this.messageService.delete(message).then(() => {
 				this.realMessages.splice(index, 1);
+				this.messagesToDelete.splice(this.messagesToDelete.indexOf(message), 1);
 			});
 		}
 
@@ -110,9 +117,11 @@ export class MessagesComponent implements OnInit {
 	sendMessage(messageContent) {
 
 		if (this.isRecording()) {
+			this.isSendingMessage = true;
 			this.messageService.create(messageContent, this.conversation.id, true).then(message => {
 				this.realMessages.push(message);
 				this.messages.push(message);
+				this.isSendingMessage = false;
 			});
 		} else {
 			/* we're in playback mode */
@@ -174,6 +183,14 @@ export class MessagesComponent implements OnInit {
 			this.showEditConversation = false;
 			this.isSavingConversation = false;
 		});
+	}
+
+	isDeletingMessage(message: Message): boolean {
+		return this.messagesToDelete.indexOf(message) !== -1;
+	}
+
+	isMovingMessage(message: Message): boolean {
+		return this.messagesToMove.indexOf(message) !== -1;
 	}
 
 }

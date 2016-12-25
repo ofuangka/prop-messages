@@ -7,8 +7,8 @@ anonymous {
     flex-direction: column;
     justify-content: center;
 }
-small {
-    font-size: 0.8em;
+.thin {
+    font-weight: 100;
 }
 .fancy-letter {
     border: 1px solid rgb(21, 126, 251);

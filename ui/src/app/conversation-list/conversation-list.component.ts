@@ -12,6 +12,7 @@ export class ConversationListComponent implements OnInit {
 	isLoading = true;
 	showNewConversation = false;
 	isSavingConversation = false;
+	conversationsToDelete: Conversation[] = [];
 
 	conversations: Conversation[];
 
@@ -44,7 +45,11 @@ export class ConversationListComponent implements OnInit {
 	}
 
 	delete(conversation: Conversation) {
-		this.conversationService.delete(conversation).then(() => this.conversations.splice(this.conversations.indexOf(conversation), 1));
+		this.conversationsToDelete.push(conversation);
+		this.conversationService.delete(conversation).then(() => {
+			this.conversations.splice(this.conversations.indexOf(conversation), 1);
+			this.conversationsToDelete.splice(this.conversationsToDelete.indexOf(conversation), 1);
+		});
 	}
 
 	showErrorMessage(message) {
