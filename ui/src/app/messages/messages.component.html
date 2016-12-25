@@ -8,21 +8,28 @@
 	<a *ngIf="!conversation" class="text-right"></a>
 	<a *ngIf="conversation" class="text-right" (click)="editTo = conversation.to; editImessage = conversation.protocol === 'imessage'; showEditConversation = true"><strong class="fancy-letter">i</strong></a>
 </header>
-<div *ngIf="messages" (click)="selectedMessage = null" id="messages" class="below-header-lg">
-	<div *ngFor="let message of messages | before: playbackIndex">
-		<div *ngIf="message.ts" class="timestamp">
-			<strong *ngIf="index === 0">{{ (conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br *ngIf="index === 0"
-			/>
-			<strong>{{ message.ts | friendlyDate: true }}</strong> {{ message.ts | date: 'h:mm a' }}
-		</div>
-		<div class="message-container" [ngClass]="{'outbound': message.outbound, 'imessage': conversation.protocol === 'imessage' }">
-			<div (click)="isRecording() && (selectedMessage = message); $event.stopPropagation()" class="message" [ngClass]="{'active': selectedMessage === message}">{{ message.content }}</div>
-			<callout left="!message.outbound"></callout>
-		</div>
+<div class="below-header-lg">
+	<div *ngIf="isLoadingMessages" class="spinner">
+		<animated-ellipsis></animated-ellipsis>
 	</div>
-	<div *ngIf="isReceivingMessage" class="message-container">
-		<div class="message">...</div>
-		<div class="clearfix"></div>
+	<div *ngIf="messages" (click)="selectedMessage = null" id="messages">
+		<div *ngFor="let message of messages | before: playbackIndex">
+			<div *ngIf="message.ts" class="timestamp">
+				<strong *ngIf="index === 0">{{ (conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message' }}</strong><br *ngIf="index === 0"
+				/>
+				<strong>{{ message.ts | friendlyDate: true }}</strong> {{ message.ts | date: 'h:mm a' }}
+			</div>
+			<div class="message-container" [ngClass]="{'outbound': message.outbound, 'imessage': conversation.protocol === 'imessage' }">
+				<div (click)="isRecording() && (selectedMessage = message); $event.stopPropagation()" class="message" [ngClass]="{'active': selectedMessage === message}">{{ message.content }}</div>
+				<callout left="!message.outbound"></callout>
+			</div>
+		</div>
+		<div *ngIf="isThinking" class="message-container">
+			<div class="message">
+				<animated-ellipsis></animated-ellipsis>
+			</div>
+			<div class="clearfix"></div>
+		</div>
 	</div>
 </div>
 <footer *ngIf="!selectedMessage" class="toolbar">
@@ -32,15 +39,14 @@
 	<i *ngIf="isTyping" class="expand icon"></i>
 	<div class="fancy-input">
 		<input #messageContent class="actual-input" type="text" [placeholder]="(conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message'"
-			(focus)="isTyping = true" (blur)="isTyping = false" [disabled]="isReceivingMessage" />
-		<i class="send icon" [ngClass]="{'active': isTyping, 'disabled': isSendingMessage, 'imessage': (conversation.protocol === 'imessage')}"
-			(click)="!isSendingMessage && messageContent.value && sendMessage(messageContent.value); messageContent.value = ''"></i>
+			(focus)="isTyping = true" (blur)="isTyping = false" />
+		<i class="send icon" [ngClass]="{'active': isTyping, 'imessage': (conversation.protocol === 'imessage')}" (click)="!isSendingDisabled && messageContent.value && sendMessage(messageContent.value); messageContent.value = ''"></i>
 	</div>
 </footer>
 <footer *ngIf="selectedMessage" class="toolbar">
 	<i class="rewind icon" [ngClass]="{'disabled': isDeletingMessage(message) || isPlayback()}" (click)="!isDeletingMessage(message) && isRecording() && rewind(selectedMessage)">&laquo;</i>
 	<i class="move icon" [ngClass]="{'left': selectedMessage.outbound, 'disabled': isDeletingMessage(message) || isMovingMessage(message) || isPlayback()}"
-		(click)="!isDeletingMessage(message) && !isMovingMessage(message) && isRecording() && toggleOutbound(selectedMessage)">{{ selectedMessage.outbound ? '<' : '>' }}</i>
+		(click)="!isDeletingMessage(message) && !isMovingMessage(message) && isRecording() && toggleOutbound(selectedMessage)">&lsaquo;&rsaquo;</i>
 	<i class="delete icon" [ngClass]="{'disabled': isDeletingMessage(message) || isPlayback()}" (click)="!isDeletingMessage(message) && isRecording() && deleteMessage(selectedMessage)">x</i>
 	<i class="ff icon" [ngClass]="{'disabled': isDeletingMessage(message) || isRecording()}" (click)="!isDeletingMessage(message) && isPlayback() && fastForward()">&raquo;</i>
 </footer>
@@ -48,7 +54,7 @@
 	<header>
 		<a (click)="showEditConversation = false">Cancel</a>
 		<h3><strong>Details</strong></h3>
-		<a *ngIf="!isSavingConversation" (click)="saveConversation(editTo, editImessage)" class="text-right"><strong>Done</strong></a>
+		<a *ngIf="!isSavingConversation" (click)="saveConversation(editTo, editImessage)" class="text-right">Done</a>
 		<a *ngIf="isSavingConversation" class="text-right">Saving...</a>
 	</header>
 	<div class="below-header-sm">

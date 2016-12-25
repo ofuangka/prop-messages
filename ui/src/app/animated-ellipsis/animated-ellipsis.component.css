@@ -1,0 +1,19 @@
+div {
+    align-items: center;
+    display: flex;
+    height: 18px;
+    justify-content: center;
+}
+i {
+    background-color: rgb(190, 190, 196);
+    border-radius: 9999px;
+    height: 10px;
+    margin-right: 2px;
+    width: 10px;
+}
+i:last-child {
+    margin-right: 0;
+}
+i.active {
+    background-color: rgb(155, 155, 160);
+}

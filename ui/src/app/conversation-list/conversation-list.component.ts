@@ -14,6 +14,7 @@ export class ConversationListComponent implements OnInit {
 	isSavingConversation = false;
 	conversationsToDelete: Conversation[] = [];
 	conversations: Conversation[];
+	isEditing = false;
 
 	constructor(private conversationService: ConversationService, private router: Router) { }
 

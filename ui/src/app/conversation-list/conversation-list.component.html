@@ -1,12 +1,13 @@
 <header>
 	<a *ngIf="!isEditing" (click)="isEditing = true">Edit</a>
-	<a *ngIf="isEditing" (click)="isEditing = false"><strong>Cancel</strong></a>
+	<a *ngIf="isEditing" (click)="isEditing = false">Cancel</a>
 	<h3><strong>Messages</strong></h3>
-	<a class="text-right" (click)="showNewConversation = true">New</a>
+	<a *ngIf="!isEditing" class="text-right" (click)="showNewConversation = true">New</a>
+	<a *ngIf="isEditing"></a>
 </header>
 <section class="below-header-sm">
 	<ul *ngIf="!isLoading" class="ui-table-view">
-		<li *ngIf="conversations && conversations.length === 0">
+		<li *ngIf="conversations && conversations.length === 0" class="no-gutter-link">
 			<div class="row">No messages</div>
 		</li>
 		<li *ngFor="let conversation of conversations" (click)="!isEditing && showMessages(conversation)">
@@ -24,7 +25,9 @@
 			</div>
 		</li>
 	</ul>
-	<div *ngIf="isLoading" class="spinner">Loading...</div>
+	<div *ngIf="isLoading" class="spinner">
+		<animated-ellipsis></animated-ellipsis>
+	</div>
 </section>
 <div class="modal" *ngIf="showNewConversation">
 	<header>

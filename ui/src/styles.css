@@ -11,6 +11,7 @@ a {
     text-decoration: none;
 }
 i {
+    font-family: 'Varela Round', sans-serif;
     font-style: normal;
 }
 strong {
@@ -107,6 +108,9 @@ header > h3 {
     display: flex;
     list-style-type: none;
 }
+.ui-table-view > li.no-gutter-link {
+    padding-left: 24px;
+}
 .ui-table-view > li > .gutter-link {
     margin: 12px;
 }
@@ -134,8 +138,8 @@ header > h3 {
     width: 50px;
 }
 .switch.on {
-    background-color: limegreen;
-    border-color: limegreen;
+    background-color: rgb(32, 204, 80);
+    border-color: rgb(32, 204, 80);
     justify-content: flex-end;
 }
 .peg {
@@ -146,4 +150,7 @@ header > h3 {
     display: inline-block;
     width: 25px;
     height: 25px;
+}
+.disabled {
+    opacity: 0.5;
 }

@@ -16,7 +16,7 @@ export class MessagesComponent implements OnInit {
 	selectedMessage: Message = null;
 	realMessages: Message[] = [];
 	messages: Message[] = [];
-	isReceivingMessage = false;
+	isThinking = false;
 	minKeyMs = 50;
 	maxKeyMs = 150;
 	minReadMessageMs = 500;
@@ -25,9 +25,10 @@ export class MessagesComponent implements OnInit {
 	editImessage: boolean;
 	showEditConversation = false;
 	isSavingConversation = false;
-	isSendingMessage = false;
+	isSendingDisabled = false;
 	messagesToDelete: Message[] = [];
 	messagesToMove: Message[] = [];
+	isLoadingMessages: boolean;
 	constructor(
 		private messageService: MessageService,
 		private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class MessagesComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.params.forEach((params: Params) => {
+			this.isLoadingMessages = true;
 			let conversationId = params['conversationId'];
 			this.conversationService.get(conversationId).then(conversation => this.conversation = conversation);
 			this.messageService.list(conversationId).then(messages => {
@@ -48,6 +50,8 @@ export class MessagesComponent implements OnInit {
 
 				/* generate the messages array */
 				this.messages = [].concat(this.realMessages);
+
+				this.isLoadingMessages = false;
 			});
 		});
 	}
@@ -117,11 +121,11 @@ export class MessagesComponent implements OnInit {
 	sendMessage(messageContent) {
 
 		if (this.isRecording()) {
-			this.isSendingMessage = true;
+			this.isSendingDisabled = true;
 			this.messageService.create(messageContent, this.conversation.id, true).then(message => {
 				this.realMessages.push(message);
 				this.messages.push(message);
-				this.isSendingMessage = false;
+				this.isSendingDisabled = false;
 			});
 		} else {
 			/* we're in playback mode */
@@ -159,15 +163,18 @@ export class MessagesComponent implements OnInit {
 
 			/* we want to play back the next message if it's incoming */
 			if (nextMessage && !nextMessage.outbound) {
+				this.isSendingDisabled = true;
 				setTimeout(() => {
-					this.isReceivingMessage = true;
+					this.isThinking = true;
 					setTimeout(() => {
 						this.messages.push(nextMessage);
-						this.isReceivingMessage = false;
+						this.isThinking = false;
 						this.playbackIndex++;
 						this.playback();
 					}, this.randomWaitTime(this.minKeyMs, this.maxKeyMs) * nextMessage.content.length);
 				}, this.randomWaitTime(this.minReadMessageMs, this.maxReadMessageMs));
+			} else {
+				this.isSendingDisabled = false;
 			}
 		}
 	}

@@ -15,6 +15,7 @@ import { ArrowComponent } from './arrow/arrow.component';
 import { CalloutComponent } from './callout/callout.component';
 
 import { BeforePipe, EllipsisPipe, FriendlyDatePipe, WhomPipe, InitialsPipe } from './pipes';
+import { AnimatedEllipsisComponent } from './animated-ellipsis/animated-ellipsis.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { BeforePipe, EllipsisPipe, FriendlyDatePipe, WhomPipe, InitialsPipe } fr
 		ArrowComponent,
 		BeforePipe,
 		CalloutComponent,
-		InitialsPipe
+		InitialsPipe,
+		AnimatedEllipsisComponent
 	],
 	providers: [ConversationService, DatePipe, SlicePipe, MessageService],
 	bootstrap: [PropMessagesComponent]
