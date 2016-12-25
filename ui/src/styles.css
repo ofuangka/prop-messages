@@ -1,21 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 html, body {
-    height: 100%;
-}
-body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12pt;
+    font-weight: 100;
+    height: 100%;
     margin: 0;
 }
 a {
-    color: rgb(21, 126, 251);
+    color: rgb(0, 124, 251);
+    cursor: pointer;
     text-decoration: none;
 }
+i {
+    font-style: normal;
+}
+strong {
+    font-weight: 500;
+}
 input {
+    border: none;
     font-size: 12pt;
 }
-.flex-header {
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+header {
     background-color: rgb(249, 249, 249);
-    border-bottom: 1px solid rgb(212, 211, 214);
+    border-bottom: 1px solid rgb(208, 208, 208);
     display: flex;
     justify-content: center;
     position: fixed;
@@ -24,41 +35,30 @@ input {
     z-index: 9999;
     width: 100%;
 }
-.flex-header > .nav-item {
-    padding: 16px;
+header > * {
+    padding: 12px;
     flex-basis: 0;
     flex-grow: 1;
 }
-.title {
+header > h3 {
+    cursor: default;
+    flex-grow: 2;
+    font-size: 1em;
+    margin: 0;
     text-align: center;
 }
-.flex-header > .title {
-    flex-grow: 2;
+.below-header-sm {
+    padding-top: 42px;
 }
-.icon {
-    flex-grow: 0;
-    flex-shrink: 0;
-    height: 50px;
-    margin-right: 8px;
-    width: 50px;
-}
-input:focus, select:focus, textarea:focus, button:focus {
-    outline: none;
-}
-.modal {
-    background-color: white;
-    border: 1px solid rgb(212, 211, 214);
-    height: 100%;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
-}
-.modal-header, .modal-content, .modal-footer {
-    padding: 16px;
+.below-header-lg {
+    padding-bottom: 98px;
+    padding-top: 98px;
 }
 .clearfix {
     clear: both;
+}
+.text-center {
+    text-align: center;
 }
 .text-right {
     text-align: right;
@@ -68,4 +68,79 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 .pull-right {
     float: right;
+}
+.modal {
+    background-color: white;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+#to {
+    background-color: rgb(248, 248, 248);
+    display: flex;
+    padding: 16px;
+}
+#to > label {
+    color: rgb(143, 143, 147);
+    margin-right: 16px;
+}
+#to > input {
+    background-color: transparent;
+    flex-grow: 1;
+    width: 0;
+}
+.spinner {
+    padding: 16px;
+}
+.ui-table-view {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+.ui-table-view > li {
+    align-items: center;
+    display: flex;
+    list-style-type: none;
+}
+.ui-table-view > li > .gutter-link {
+    margin: 12px;
+}
+.ui-table-view > li > .row {
+    border-bottom: 1px solid rgb(240, 240, 240);
+    color: rgb(150, 150, 154);
+    display: flex;
+    flex-grow: 1;
+    padding: 8px 8px 8px 0;
+}
+.ui-table-view > li > .row.setting {
+    align-items: center;
+    padding: 16px 16px 16px 0;
+}
+.ui-table-view > li > .row.setting > label {
+    color: black;
+    flex-grow: 1;
+}
+.switch {
+    background-color: white;
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    width: 50px;
+}
+.switch.on {
+    background-color: limegreen;
+    border-color: limegreen;
+    justify-content: flex-end;
+}
+.peg {
+    background-color: white;
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 25px;
+    box-shadow: 0 1px 8px 2px rgba(196, 196, 196, 0.3);
+    display: inline-block;
+    width: 25px;
+    height: 25px;
 }

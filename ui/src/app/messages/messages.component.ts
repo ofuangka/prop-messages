@@ -5,19 +5,15 @@ import { Conversation } from '../domain/conversation';
 import { MessageService } from '../message.service';
 import { Message } from '../domain/message';
 
-const FIVE_MINUTES_MS = 5 * 60 * 1000;
-
 @Component({
 	selector: 'prop-messages-messages',
 	templateUrl: './messages.component.html',
 	styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-	showConversationSettings = false;
-	conversation: Conversation;
-	playbackIndex = -1;
+	conversation: Conversation = { id: '', to: '', createdTs: 0, lastUpdatedTs: 0, createdBy: '', protocol: '' };
+	playbackIndex = -2;
 	selectedMessage: Message = null;
-	groupThreshold = FIVE_MINUTES_MS;
 	realMessages: Message[] = [];
 	messages: Message[] = [];
 	isReceivingMessage = false;
@@ -25,6 +21,10 @@ export class MessagesComponent implements OnInit {
 	maxKeyMs = 200;
 	minReadMessageMs = 1000;
 	maxReadMessageMs = 2000;
+	editTo: string;
+	editImessage: boolean;
+	showEditConversation = false;
+	isSavingConversation = false;
 	constructor(
 		private messageService: MessageService,
 		private route: ActivatedRoute,
@@ -68,7 +68,7 @@ export class MessagesComponent implements OnInit {
 
 		/* rewind can only be called during recording mode */
 		if (this.isRecording()) {
-			this.playbackIndex = this.findRealMessage(message);
+			this.playbackIndex = this.findRealMessage(message) - 1;
 			this.selectedMessage = null;
 			this.playback();
 		}
@@ -101,7 +101,7 @@ export class MessagesComponent implements OnInit {
 
 	fastForward() {
 		if (this.isPlayback()) {
-			this.playbackIndex = -1;
+			this.playbackIndex = -2;
 			this.messages = [].concat(this.realMessages);
 			this.selectedMessage = null;
 		}
@@ -126,11 +126,11 @@ export class MessagesComponent implements OnInit {
 	}
 
 	isRecording(): boolean {
-		return this.playbackIndex === -1;
+		return this.playbackIndex === -2;
 	}
 
 	isPlayback(): boolean {
-		return this.playbackIndex !== -1;
+		return this.playbackIndex !== -2;
 	}
 
 	isRealMessage(message): boolean {
@@ -165,6 +165,15 @@ export class MessagesComponent implements OnInit {
 
 	randomWaitTime(minMs: number, maxMs: number): number {
 		return Math.max(Math.random() * maxMs, minMs);
+	}
+
+	saveConversation(to: string, useImessage: boolean) {
+		this.isSavingConversation = true;
+		this.conversationService.update(Object.assign({}, this.conversation, { to: this.editTo, protocol: this.editImessage ? 'imessage' : 'sms' })).then((conversation) => {
+			this.conversation = conversation;
+			this.showEditConversation = false;
+			this.isSavingConversation = false;
+		});
 	}
 
 }

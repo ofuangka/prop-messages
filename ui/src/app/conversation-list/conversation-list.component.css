@@ -1,109 +1,37 @@
-.title {
-    font-weight: bold;
-}
-.content {
-    padding-top: 50px;
-}
-ul.table {
-    background-color: white;
-    margin: 0;
-    padding: 0;
-}
-ul.table > li {
-    cursor: pointer;
-    list-style-type: none;
-    padding-left: 32px;
-}
-.row {
-    border-bottom: 1px solid rgb(212, 211, 214);
-    display: flex;
-    padding: 8px 8px 8px 0;
-}
-.text {
-    flex-grow: 1;
-}
-.heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-.heading-item {
+anonymous {
     flex-grow: 0;
     flex-shrink: 0;
+    margin: 8px 10px 8px 0;
 }
-.heading-item.to {
+.conversation-summary {
+    flex-grow: 1;
+}
+.conversation-summary > .details {
+    display: flex;
+    align-items: baseline;
+}
+.conversation-summary > .details > .to-whom {
+    color: black;
     flex-grow: 1;
     flex-shrink: 1;
-    font-weight: bold;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
+    white-space: nowrap;
 }
-.heading-item.last-updated-ts {
+.conversation-summary > .details > .last-updated-ts {
     margin-right: 8px;
     white-space: nowrap;
 }
-.grayish {
-    color: rgb(142, 142, 142);
-    font-size: 0.9em;
-}
-.label-input {
-    display: flex;
-    flex-direction: column;
-}
-.label-input label {
-    margin-bottom: 2px;
-}
-#to-line {
-    background-color: lightgray;
-    display: flex;
+i.delete {
     align-items: center;
-}
-#to-line > .to-item {
-    padding: 16px;
-}
-#to-line > .to-item:last {
-    padding-left: 0;
-}
-#to-line > label {
-    color: gray;
-}
-#to-line > input {
-    background-color: lightgray;
-    border: none;
-    flex-grow: 1;
-    width: 0;
-}
-.loading {
-    padding: 16px;
-}
-.row.setting {
-    align-items: center;
-    padding: 16px 16px 16px 0;
-}
-.row.setting > label {
-    flex-grow: 1;
-}
-.switch {
-    background-color: white;
-    border: 1px solid lightgray;
-    border-radius: 25px;
+    background-color: rgb(0, 124, 251);
+    border-radius: 9999px;
+    color: white;
     display: flex;
-    align-items: center;
-    width: 50px;
-}
-.switch.on {
-    background-color: limegreen;
-    border-color: limegreen;
-    justify-content: flex-end;
-}
-.peg {
-    background-color: white;
-    border: 1px solid lightgray;
-    border-radius: 25px;
-    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    width: 25px;
-    height: 25px;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: 500;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
 }

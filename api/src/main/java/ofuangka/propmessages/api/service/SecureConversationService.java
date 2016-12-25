@@ -12,7 +12,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 
 import ofuangka.propmessages.api.dao.ConversationDao;
+import ofuangka.propmessages.api.dao.MessageDao;
 import ofuangka.propmessages.api.domain.Conversation;
+import ofuangka.propmessages.api.domain.Message;
 import ofuangka.propmessages.api.security.SecurityService;
 
 /**
@@ -26,6 +28,9 @@ public class SecureConversationService {
 
 	@Inject
 	private ConversationDao conversationDao;
+
+	@Inject
+	private MessageDao messageDao;
 
 	@Inject
 	private SecurityService securityService;
@@ -69,6 +74,7 @@ public class SecureConversationService {
 			/* only update writable properties */
 			toUpdate.setIconId(conversation.getIconId());
 			toUpdate.setTo(conversation.getTo());
+			toUpdate.setProtocol(conversation.getProtocol());
 			toUpdate.setLastUpdatedTs(now);
 		}
 		return toUpdate;
@@ -95,6 +101,23 @@ public class SecureConversationService {
 		conversation.setCreatedTs(now);
 		conversation.setLastUpdatedTs(now);
 		return conversationDao.create(conversation);
+	}
+
+	public Conversation tryDelete(String conversationId) {
+		Conversation candidate = conversationDao.get(conversationId);
+		if (candidate != null) {
+			String userId = securityService.getUserId();
+			if (StringUtils.equals(userId, candidate.getCreatedBy())) {
+				List<Message> messages = messageDao.getByConversationIdAndUserId(conversationId, userId);
+				for (Message message : messages) {
+					messageDao.delete(message.getId());
+				}
+				return conversationDao.delete(conversationId);
+			} else {
+				throw new SecurityException();
+			}
+		}
+		return null;
 	}
 
 }

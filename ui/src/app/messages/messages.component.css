@@ -1,7 +1,24 @@
-#content {
-    padding: 16px;
-    padding-bottom: 120px;
-    padding-top: 120px;
+anonymous {
+    margin-bottom: 8px;
+}
+.stack {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+small {
+    font-size: 0.8em;
+}
+.fancy-letter {
+    border: 1px solid rgb(21, 126, 251);
+    border-radius: 9999px;
+    font-family: serif;
+    padding: 0 7px;
+}
+#messages {
+    padding-left: 16px;
+    padding-right: 16px;
 }
 .timestamp {
     color: gray;
@@ -9,54 +26,64 @@
     margin-bottom: 8px;
     text-align: center;
 }
-.message {
-    align-self: flex-start;
-    background-color: lightgray;
+.message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.message-container.outbound {
+    align-items: flex-end;
+}
+.message-container > .message {
+    background-color: rgb(229, 229, 234);
     border: 1px solid white;
     border-radius: 16px;
-    float: left;
     padding: 8px 16px;
     margin-bottom: 8px;
     max-width: 250px;
 }
-.message.active {
-    border-color: black;
-    box-shadow: 1px 1px 1px 1px #666;
+.message-container > .message.active {
+    border-color: #999;
+    box-shadow: 0 1px 8px 2px rgba(196, 196, 196, 0.3);
 }
-.outbound {
-    align-self: flex-end;
-    background-color: limegreen;
+.message-container.outbound > .message {
+    background-color: rgb(32, 204, 80);
     color: white;
-    float: right;
 }
-.imessage .message.outbound {
-    background-color: rgb(21, 126, 251); 
-    color: white;
+.message-container.outbound.imessage > .message {
+    background-color: rgb(21, 126, 251);
 }
 footer {
-    align-items: center;
-    justify-content: space-around;
     background-color: white;
     bottom: 0;
-    display: flex;
     left: 0;
     min-height: 38px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     position: fixed;
     width: 100%;
 }
-.fancy-input {
+.toolbar {
     align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+.toolbar > * {
+    margin-right: 16px;
+}
+.toolbar > *:first-child {
+    margin-left: 16px;
+}
+.fancy-input {
+    align-items: stretch;
     border: 1px solid lightgray;
-    border-radius: 25px;
+    border-radius: 9999px;
     display: flex;
     flex-grow: 1;
     flex-shrink: 1;
-    margin: 0 16px;
     padding: 3px;
 }
-.fancy-input > .actual-input {
+.fancy-input input {
     background-color: transparent;
     border: none;
     flex-grow: 1;
@@ -64,53 +91,60 @@ footer {
     width: 0;
     padding: 0 8px;
 }
-.fancy-letter {
-    border: 1px solid rgb(21, 126, 251);
-    border-radius: 16px;
-    display: inline-block;
-    font-family: serif;
-    padding: 0 7px;
-
-}
-.flex-links {
-    display: flex;
-}
-.spacer {
-    flex-grow: 1;
-}
-.rounded-rect,
-.apps-icon,
-.gesture-icon,
-.camera-icon,
-.rewind-icon,
-.ff-icon,
-.move-icon,
-.delete-icon,
-.send-icon {
+i.icon {
     background-color: rgb(133, 142, 153);
-    display: inline-block;
-    height: 25px;
-    margin-left: 16px;
+    color: white;
+    display: flex;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+}
+i.camera {
+    border-radius: 3px;
+    height: 20px;
+    width: 25px;
+}
+i.heart {
+    border-radius: 9999px;
+    height: 20px;
+    width: 20px;
+}
+i.apps {
+    border-radius: 9999px;
+    height: 20px;
     width: 30px;
 }
-.rounded-rect, .camera-icon, .rewind-icon, .ff-icon {
+i.expand {
     border-radius: 5px;
+    height: 25px;
+    width: 30px;
 }
-.apps-icon, .gesture-icon, .move-icon {
-    border-radius: 25px;
-}
-.send-icon, .delete-icon {
-    border-radius: 25px;
+i.send {
+    border-radius: 9999px;
+    width: 30px;
     height: 30px;
 }
-.send-icon.active {
+i.send.active {
     background-color: limegreen;
 }
-.send-icon.active.imessage {
+i.send.active.imessage {
     background-color: rgb(21, 126, 251);
 }
-footer > i:last-child {
-    margin-right: 16px;
+i.rewind, i.ff {
+    border-radius: 3px;
+    height: 25px;
+    width: 30px;
+}
+i.move {
+    border-radius: 5px;
+    height: 25px;
+    width: 25px;
+}
+i.delete {
+    border-radius: 9999px;
+    height: 25px;
+    width: 25px;
 }
 .disabled {
     opacity: 0.5;

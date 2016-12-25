@@ -1,47 +1,49 @@
-<nav class="flex-header">
-	<a class="nav-item">Edit</a>
-	<div class="nav-item title">Messages</div>
-	<a class="nav-item text-right" (click)="showNewMessage = true">New</a>
-</nav>
-<div class="content">
-	<ul *ngIf="!showConversationListLoading" class="table">
-		<li *ngFor="let conversation of conversations" (click)="showConversationDetail(conversation)">
+<header>
+	<a *ngIf="!isEditing" (click)="isEditing = true">Edit</a>
+	<a *ngIf="isEditing" (click)="isEditing = false"><strong>Cancel</strong></a>
+	<h3><strong>Messages</strong></h3>
+	<a class="text-right" (click)="showNewConversation = true">New</a>
+</header>
+<section class="below-header-sm">
+	<ul *ngIf="!isLoading" class="ui-table-view">
+		<li *ngIf="conversation && conversation.length">No conversations</li>
+		<li *ngFor="let conversation of conversations" (click)="!isEditing && showMessages(conversation)">
+			<a (click)="isEditing && delete(conversation)" class="gutter-link"><i *ngIf="isEditing" class="delete">x</i></a>
 			<div class="row">
-				<img *ngIf="conversation.iconId" class="icon" [src]="getIconHref(conversation.iconId)" />
-				<anonymous *ngIf="!conversation.iconId" class="icon" [size]="50"></anonymous>
-				<div class="text">
-					<div class="heading">
-						<div class="to heading-item">{{ conversation.to | ellipsis: 25 }}</div>
-						<div class="last-updated-ts grayish heading-item">{{ conversation.lastUpdatedTs | friendlyDate }}</div>
+				<anonymous [size]="40" [initials]="conversation.to | initials"></anonymous>
+				<div class="conversation-summary">
+					<div class="details">
+						<strong class="to-whom">{{ conversation.to | ellipsis: 25 }}</strong>
+						<span class="last-updated-ts">{{ conversation.lastUpdatedTs | friendlyDate }}</span>
 						<arrow></arrow>
 					</div>
-					<div class="summary grayish">{{ conversation.summary | ellipsis: 60 }}</div>
+					<div>{{ conversation.summary | ellipsis: 60 }}</div>
 				</div>
 			</div>
 		</li>
 	</ul>
-	<div *ngIf="showConversationListLoading" class="loading">Loading...</div>
-</div>
-<div class="modal" *ngIf="showNewMessage">
-	<nav class="flex-header">
-		<a class="nav-item" (click)="imessage = false; showNewMessage = false">Cancel</a>
-		<div class="nav-item title">New Message</div>
-		<a *ngIf="!showNewMessageLoading" class="nav-item text-right" (click)="to.value && to.value.length > 0 && saveNewMessage(to.value, imessage)">Save</a>
-		<a *ngIf="showNewMessageLoading" class="nav-item text-right">Loading...</a>
-	</nav>
-	<div class="content">
-		<form id="new-message-form" class="form">
-			<div id="to-line">
-				<label class="to-item">To:</label><input #to class="to-item" />
-			</div>
-			<ul class="table">
-				<li>
-					<div class="row setting">
-						<label>Use iMessage</label>
-						<i [ngClass]="{'switch': true, 'on': imessage}" (click)="imessage = !imessage"><i class="peg"></i></i>
-					</div>
-				</li>
-			</ul>
-		</form>
+	<div *ngIf="isLoading" class="spinner">Loading...</div>
+</section>
+<div class="modal" *ngIf="showNewConversation">
+	<header>
+		<a (click)="useImessage = false; showNewConversation = false">Cancel</a>
+		<h3><strong>New Message</strong></h3>
+		<a *ngIf="!isSavingConversation" class="text-right" (click)="to.value && to.value.length > 0 && saveConversation(to.value, useImessage)">Save</a>
+		<a *ngIf="isSavingConversation" class="text-right">Saving...</a>
+	</header>
+	<div class="below-header-sm">
+		<div id="to">
+			<label>To:</label>
+			<input #to class="to-item" />
+		</div>
+		<ul class="ui-table-view">
+			<li>
+				<a class="gutter-link"></a>
+				<div class="row setting">
+					<label>iMessage</label>
+					<i [ngClass]="{'switch': true, 'on': useImessage}" (click)="useImessage = !useImessage"><i class="peg"></i></i>
+				</div>
+			</li>
+		</ul>
 	</div>
 </div>

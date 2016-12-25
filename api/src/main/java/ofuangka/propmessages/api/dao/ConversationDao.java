@@ -10,4 +10,5 @@ public interface ConversationDao {
 	List<Conversation> getByUserId(String userId);
 	Conversation create(Conversation c);
 	Conversation update(Conversation c);
+	Conversation delete(String messageId);
 }

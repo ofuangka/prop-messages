@@ -8,36 +8,36 @@ import { ConversationListComponent } from './conversation-list/conversation-list
 import { MessagesComponent } from './messages/messages.component';
 import { ConversationService } from './conversation.service';
 import { AppRoutingModule } from './app-routing.module';
-import { FriendlyDatePipe } from './friendly-date.pipe';
 import { DatePipe, SlicePipe } from '@angular/common';
 import { AnonymousComponent } from './anonymous/anonymous.component';
-import { EllipsisPipe } from './ellipsis.pipe';
 import { MessageService } from './message.service';
-import { WhomPipe } from './whom.pipe';
 import { ArrowComponent } from './arrow/arrow.component';
-import { BeforePipe } from './before.pipe';
 import { CalloutComponent } from './callout/callout.component';
 
+import { BeforePipe, EllipsisPipe, FriendlyDatePipe, WhomPipe, InitialsPipe } from './pipes';
+
+
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule
-  ],
-  declarations: [
-    PropMessagesComponent,
-    ConversationListComponent,
-    MessagesComponent,
-    FriendlyDatePipe,
-    AnonymousComponent,
-    EllipsisPipe,
-    WhomPipe,
-    ArrowComponent,
-    BeforePipe,
-    CalloutComponent
-  ],
-  providers: [ConversationService, DatePipe, SlicePipe, MessageService],
-  bootstrap: [PropMessagesComponent]
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		AppRoutingModule
+	],
+	declarations: [
+		PropMessagesComponent,
+		ConversationListComponent,
+		MessagesComponent,
+		FriendlyDatePipe,
+		AnonymousComponent,
+		EllipsisPipe,
+		WhomPipe,
+		ArrowComponent,
+		BeforePipe,
+		CalloutComponent,
+		InitialsPipe
+	],
+	providers: [ConversationService, DatePipe, SlicePipe, MessageService],
+	bootstrap: [PropMessagesComponent]
 })
 export class AppModule { }

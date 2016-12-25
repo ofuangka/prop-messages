@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 	styleUrls: ['./conversation-list.component.css']
 })
 export class ConversationListComponent implements OnInit {
-	showConversationListLoading = true;
-	showNewMessage = false;
-	showNewMessageLoading = false;
+	isLoading = true;
+	showNewConversation = false;
+	isSavingConversation = false;
 
 	conversations: Conversation[];
 
@@ -19,8 +19,8 @@ export class ConversationListComponent implements OnInit {
 
 	ngOnInit() {
 		this.conversationService.list().then((conversations) => {
-			this.conversations = conversations;
-			this.showConversationListLoading = false;
+			this.conversations = conversations.sort((a, b) => b.lastUpdatedTs - a.lastUpdatedTs);
+			this.isLoading = false;
 		});
 	}
 
@@ -28,19 +28,23 @@ export class ConversationListComponent implements OnInit {
 		return iconId;
 	}
 
-	showConversationDetail(conversation: Conversation) {
+	showMessages(conversation: Conversation) {
 		this.router.navigate(['/conversations', conversation.id]);
 	}
 
-	saveNewMessage(to, imessage) {
-		this.showNewMessageLoading = true;
+	saveConversation(to, imessage) {
+		this.isSavingConversation = true;
 		this.conversationService.create(to, (imessage ? 'imessage' : 'sms')).then(conversation => {
-			this.showNewMessageLoading = false;
+			this.isSavingConversation = false;
 			this.router.navigate(['/conversations', conversation.id]);
 		}, error => {
-			this.showNewMessageLoading = false;
+			this.isSavingConversation = false;
 			this.showErrorMessage(error.message);
 		});
+	}
+
+	delete(conversation: Conversation) {
+		this.conversationService.delete(conversation).then(() => this.conversations.splice(this.conversations.indexOf(conversation), 1));
 	}
 
 	showErrorMessage(message) {

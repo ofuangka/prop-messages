@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./prop-messages.component.css']
 })
 export class PropMessagesComponent {
-  title = 'app works!';
 }

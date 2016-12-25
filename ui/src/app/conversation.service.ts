@@ -21,4 +21,12 @@ export class ConversationService {
 		return this.http.post('/api/conversations', { to: to, protocol: protocol }).toPromise().then((response) => response.json());
 	}
 
+	delete(conversation: Conversation): Promise<Conversation> {
+		return this.http.delete(`/api/conversations/${conversation.id}`).toPromise().then((response) => response.json());
+	}
+
+	update(conversation: Conversation): Promise<Conversation> {
+		return this.http.put(`/api/conversations/${conversation.id}`, conversation).toPromise().then((response) => response.json());
+	}
+
 }

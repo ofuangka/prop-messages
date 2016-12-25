@@ -7,7 +7,7 @@ export class BeforePipe implements PipeTransform {
 
 	transform(value: any, beforeIndex: number): any {
 		var arr;
-		if (value && value.length && beforeIndex >= 0) {
+		if (value && value.length && beforeIndex >= -1) {
 			arr = [];
 			for (let i = 0; i < value.length; i++) {
 				if (i <= beforeIndex) {
