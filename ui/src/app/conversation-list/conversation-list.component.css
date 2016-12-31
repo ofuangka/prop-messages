@@ -8,7 +8,7 @@ anonymous {
 }
 .conversation-summary > .details {
     display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 .conversation-summary > .details > .to-whom {
     color: black;

@@ -10,4 +10,5 @@ public interface MessageDao {
 	Message update(Message m);
 	Message delete(String messageId);
 	Message get(String messageId);
+	void delete(List<String> messageIds);
 }

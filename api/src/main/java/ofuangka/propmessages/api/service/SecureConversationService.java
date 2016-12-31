@@ -1,5 +1,6 @@
 package ofuangka.propmessages.api.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -109,9 +110,11 @@ public class SecureConversationService {
 			String userId = securityService.getUserId();
 			if (StringUtils.equals(userId, candidate.getCreatedBy())) {
 				List<Message> messages = messageDao.getByConversationIdAndUserId(conversationId, userId);
+				List<String> messageIds = new ArrayList<String>();
 				for (Message message : messages) {
-					messageDao.delete(message.getId());
+					messageIds.add(message.getId());
 				}
+				messageDao.delete(messageIds);
 				return conversationDao.delete(conversationId);
 			} else {
 				throw new SecurityException();

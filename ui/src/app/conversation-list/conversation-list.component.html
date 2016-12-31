@@ -10,7 +10,7 @@
 		<li *ngIf="conversations && conversations.length === 0" class="no-gutter-link">
 			<div class="row">No messages</div>
 		</li>
-		<li *ngFor="let conversation of conversations" (click)="!isEditing && showMessages(conversation)">
+		<li *ngFor="let conversation of conversations" (click)="!isEditing && goToMessages(conversation)">
 			<a (click)="isEditing && !isDeletingConversation(conversation) && delete(conversation)" class="gutter-link" [ngClass]="{'disabled': isDeletingConversation(conversation)}"><i *ngIf="isEditing" class="delete">x</i></a>
 			<div class="row">
 				<anonymous [size]="40" [initials]="conversation.to | initials"></anonymous>

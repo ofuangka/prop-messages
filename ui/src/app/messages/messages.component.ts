@@ -4,6 +4,7 @@ import { ConversationService } from '../conversation.service';
 import { Conversation } from '../domain/conversation';
 import { MessageService } from '../message.service';
 import { Message } from '../domain/message';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'prop-messages-messages',
@@ -29,9 +30,11 @@ export class MessagesComponent implements OnInit {
 	messagesToDelete: Message[] = [];
 	messagesToMove: Message[] = [];
 	isLoadingMessages: boolean;
+
 	constructor(
 		private messageService: MessageService,
 		private route: ActivatedRoute,
+		private router: Router,
 		private conversationService: ConversationService,
 	) { }
 
@@ -129,7 +132,7 @@ export class MessagesComponent implements OnInit {
 			});
 		} else {
 			/* we're in playback mode */
-			this.messages.splice(++this.playbackIndex, 1, { conversationId: this.conversation.id, content: messageContent, outbound: true });
+			this.playbackIndex++;
 			this.playback();
 		}
 	}
@@ -198,6 +201,10 @@ export class MessagesComponent implements OnInit {
 
 	isMovingMessage(message: Message): boolean {
 		return this.messagesToMove.indexOf(message) !== -1;
+	}
+
+	showPhoneTime() {
+		
 	}
 
 }

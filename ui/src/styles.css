@@ -50,6 +50,11 @@ header > h3 {
     margin: 0;
     text-align: center;
 }
+arrow {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+}
 .below-header-sm {
     padding-top: 42px;
 }

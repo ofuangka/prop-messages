@@ -1,6 +1,6 @@
 <header>
 	<a [routerLink]="['/conversations']">
-		<arrow left="true" height="20" width="10" color="rgb(21, 126, 251)"></arrow>
+		<arrow dir="left" height="20" width="10" color="rgb(21, 126, 251)" thickness="3"></arrow>
 	</a>
 	<div class="stack">
 		<anonymous size="40" [initials]="conversation.to | initials"></anonymous><small class="thin">{{ conversation.to ? (conversation.to | whom) : '...' }}</small>
@@ -36,11 +36,13 @@
 	<i *ngIf="!isTyping" class="camera icon" (click)="isPlayback() && fastForward()"></i>
 	<i *ngIf="!isTyping" class="heart icon"></i>
 	<i *ngIf="!isTyping " class="apps icon"></i>
-	<i *ngIf="isTyping" class="expand icon"></i>
+	<i *ngIf="isTyping" class="expand icon"><arrow color="white"></arrow></i>
 	<div class="fancy-input">
 		<input #messageContent class="actual-input" type="text" [placeholder]="(conversation.protocol === 'imessage') ? 'iMessage' : 'Text Message'"
 			(focus)="isTyping = true" (blur)="isTyping = false" />
-		<i class="send icon" [ngClass]="{'active': isTyping, 'imessage': (conversation.protocol === 'imessage')}" (click)="!isSendingDisabled && messageContent.value && sendMessage(messageContent.value); messageContent.value = ''"></i>
+		<i class="send icon" [ngClass]="{'active': isTyping, 'imessage': (conversation.protocol === 'imessage')}" (click)="!isSendingDisabled && messageContent.value && sendMessage(messageContent.value); messageContent.value = ''">
+			<arrow dir="up" color="white" width="10" height="5"></arrow>
+		</i>
 	</div>
 </footer>
 <footer *ngIf="selectedMessage" class="toolbar">
@@ -61,6 +63,7 @@
 		<div id="to">
 			<label>To:</label>
 			<input #to class="to-item" [(ngModel)]="editTo" />
+			<i class="phone" (click)="showPhoneTime()"></i>
 		</div>
 		<ul class="ui-table-view">
 			<li>

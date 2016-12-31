@@ -29,7 +29,7 @@ export class ConversationListComponent implements OnInit {
 		return iconId;
 	}
 
-	showMessages(conversation: Conversation) {
+	goToMessages(conversation: Conversation) {
 		this.router.navigate(['/conversations', conversation.id]);
 	}
 

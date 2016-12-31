@@ -1,11 +1,13 @@
 package ofuangka.propmessages.api.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -74,6 +76,15 @@ public class GoogleMessageDao extends GoogleDatastoreDao<Message> implements Mes
 	@Override
 	protected String getKind() {
 		return KIND_MESSAGE;
+	}
+
+	@Override
+	public void delete(List<String> messageIds) {
+		List<Key> keys = new ArrayList<Key>();
+		for (String messageId : messageIds) {
+			keys.add(KeyFactory.stringToKey(messageId));
+		}
+		getDatastore().delete(keys);
 	}
 
 }

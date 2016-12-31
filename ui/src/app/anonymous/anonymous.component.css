@@ -6,7 +6,7 @@ div {
     color: white;
     display: flex;
     font-family: 'Varela Round', sans-serif;
-    font-size: 1.1em;
-    font-weight: 500;
+    font-size: 1em;
+    font-weight: bold;
     justify-content: center;
 }
