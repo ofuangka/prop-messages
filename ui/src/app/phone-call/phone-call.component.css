@@ -1,0 +1,44 @@
+.phone-call {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.phone-controls {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+.phone-controls > .row {
+    display: flex;
+    justify-content: space-around;
+}
+.phone-actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+.icon-above-text {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+i.circular {
+    border: 2px solid gray;
+    border-radius: 9999px;
+    height: 50px;
+    width: 50px;
+}
+i.hang-up {
+    border-color: red;
+    background-color: red;
+}
+i.answer {
+    border-color: limegreen;
+    background-color: limegreen;
+}

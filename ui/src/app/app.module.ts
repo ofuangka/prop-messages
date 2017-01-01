@@ -13,9 +13,11 @@ import { AnonymousComponent } from './anonymous/anonymous.component';
 import { MessageService } from './message.service';
 import { ArrowComponent } from './arrow/arrow.component';
 import { CalloutComponent } from './callout/callout.component';
+import { PhoneCallStagingService } from './phone-call-staging.service';
 
 import { BeforePipe, EllipsisPipe, FriendlyDatePipe, WhomPipe, InitialsPipe } from './pipes';
 import { AnimatedEllipsisComponent } from './animated-ellipsis/animated-ellipsis.component';
+import { PhoneCallComponent } from './phone-call/phone-call.component';
 
 
 @NgModule({
@@ -37,9 +39,10 @@ import { AnimatedEllipsisComponent } from './animated-ellipsis/animated-ellipsis
 		BeforePipe,
 		CalloutComponent,
 		InitialsPipe,
-		AnimatedEllipsisComponent
+		AnimatedEllipsisComponent,
+		PhoneCallComponent
 	],
-	providers: [ConversationService, DatePipe, SlicePipe, MessageService],
+	providers: [ConversationService, DatePipe, SlicePipe, MessageService, PhoneCallStagingService],
 	bootstrap: [PropMessagesComponent]
 })
 export class AppModule { }

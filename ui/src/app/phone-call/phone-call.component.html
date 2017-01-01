@@ -1,0 +1,54 @@
+<div class="phone-call">
+	<h2>{{ caller }}</h2>
+	<small>{{ isSpeaking ? elapsedTime : 'mobile'}}</small>
+	<div class="phone-controls">
+		<div *ngIf="isSpeaking" class="row">
+			<div class="icon-above-text">
+				<i class="mute circular"></i>
+				<p>mute</p>
+			</div>
+			<div class="icon-above-text">
+				<i class="keypad circular"></i>
+				<p>keypad</p>
+			</div>
+			<div class="icon-above-text">
+				<i class="speaker circular"></i>
+				<p>speaker</p>
+			</div>
+		</div>
+		<div *ngIf="isSpeaking" class="row">
+			<div class="icon-above-text">
+				<i class="add-call circular"></i>
+				<p>add call</p>
+			</div>
+			<div class="icon-above-text">
+				<i class="facetime circular"></i>
+				<p>FaceTime</p>
+			</div>
+			<div class="icon-above-text">
+				<i class="contacts circular"></i>
+				<p>contacts</p>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="!isSpeaking" class="phone-alternatives">
+		<div class="icon-above-text">
+			<i class="remind-me"></i>
+			<p>Remind Me</p>
+		</div>
+		<div class="icon-above-text">
+			<i class="message-caller"></i>
+			<p>Message</p>
+		</div>
+	</div>
+	<div class="phone-actions">
+		<div class="icon-above-text" (click)="goBack()">
+			<i class="hang-up circular"></i>
+			<p>Decline</p>
+		</div>
+		<div *ngIf="!isSpeaking" (click)="isSpeaking = true" class="icon-above-text">
+			<i class="answer circular"></i>
+			<p>Accept</p>
+		</div>
+	</div>
+</div>

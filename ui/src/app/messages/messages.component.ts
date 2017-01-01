@@ -4,7 +4,7 @@ import { ConversationService } from '../conversation.service';
 import { Conversation } from '../domain/conversation';
 import { MessageService } from '../message.service';
 import { Message } from '../domain/message';
-import { Router } from '@angular/router';
+import { PhoneCallStagingService } from '../phone-call-staging.service';
 
 @Component({
 	selector: 'prop-messages-messages',
@@ -30,12 +30,13 @@ export class MessagesComponent implements OnInit {
 	messagesToDelete: Message[] = [];
 	messagesToMove: Message[] = [];
 	isLoadingMessages: boolean;
+	showPhoneConfirm = false;
 
 	constructor(
 		private messageService: MessageService,
 		private route: ActivatedRoute,
-		private router: Router,
 		private conversationService: ConversationService,
+		private phoneCallStagingService: PhoneCallStagingService
 	) { }
 
 	ngOnInit() {
@@ -203,8 +204,9 @@ export class MessagesComponent implements OnInit {
 		return this.messagesToMove.indexOf(message) !== -1;
 	}
 
-	showPhoneTime() {
-		
+	confirmPhoneCall() {
+		this.phoneCallStagingService.stagePhoneCall(this.conversation.to, 10000);
+		this.showPhoneConfirm = false;
 	}
 
 }

@@ -5,8 +5,8 @@
 	<div class="stack">
 		<anonymous size="40" [initials]="conversation.to | initials"></anonymous><small class="thin">{{ conversation.to ? (conversation.to | whom) : '...' }}</small>
 	</div>
-	<a *ngIf="!conversation" class="text-right"></a>
-	<a *ngIf="conversation" class="text-right" (click)="editTo = conversation.to; editImessage = conversation.protocol === 'imessage'; showEditConversation = true"><strong class="fancy-letter">i</strong></a>
+	<a *ngIf="!conversation.to" class="text-right"></a>
+	<a *ngIf="conversation.to" class="text-right" (click)="editTo = conversation.to; editImessage = conversation.protocol === 'imessage'; showEditConversation = true"><strong class="fancy-letter">i</strong></a>
 </header>
 <div class="below-header-lg">
 	<div *ngIf="isLoadingMessages" class="spinner">
@@ -33,7 +33,7 @@
 	</div>
 </div>
 <footer *ngIf="!selectedMessage" class="toolbar">
-	<i *ngIf="!isTyping" class="camera icon" (click)="isPlayback() && fastForward()"></i>
+	<i *ngIf="!isTyping" class="camera icon" (click)="isPlayback() && !isSendingDisabled && fastForward()"></i>
 	<i *ngIf="!isTyping" class="heart icon"></i>
 	<i *ngIf="!isTyping " class="apps icon"></i>
 	<i *ngIf="isTyping" class="expand icon"><arrow color="white"></arrow></i>
@@ -50,7 +50,6 @@
 	<i class="move icon" [ngClass]="{'left': selectedMessage.outbound, 'disabled': isDeletingMessage(message) || isMovingMessage(message) || isPlayback()}"
 		(click)="!isDeletingMessage(message) && !isMovingMessage(message) && isRecording() && toggleOutbound(selectedMessage)">&lsaquo;&rsaquo;</i>
 	<i class="delete icon" [ngClass]="{'disabled': isDeletingMessage(message) || isPlayback()}" (click)="!isDeletingMessage(message) && isRecording() && deleteMessage(selectedMessage)">x</i>
-	<i class="ff icon" [ngClass]="{'disabled': isDeletingMessage(message) || isRecording()}" (click)="!isDeletingMessage(message) && isPlayback() && fastForward()">&raquo;</i>
 </footer>
 <div class="modal" *ngIf="showEditConversation">
 	<header>
@@ -63,7 +62,7 @@
 		<div id="to">
 			<label>To:</label>
 			<input #to class="to-item" [(ngModel)]="editTo" />
-			<i class="phone" (click)="showPhoneTime()"></i>
+			<i class="phone" (click)="showPhoneConfirm = true"></i>
 		</div>
 		<ul class="ui-table-view">
 			<li>
@@ -74,5 +73,15 @@
 				</div>
 			</li>
 		</ul>
+	</div>
+</div>
+<div *ngIf="showPhoneConfirm" class="alert-background">
+	<div class="alert">
+		<h3 class="alert-title">Receive Phone Call from "{{ conversation ? conversation.to : '...' }}"?</h3>
+		<p class="alert-content">You will receive a phone call in 10 seconds. This will override any phone calls in progress.</p>
+		<div class="alert-controls">
+			<a (click)="showPhoneConfirm = false" class="btn">Cancel</a>
+			<a (click)="confirmPhoneCall()" class="btn">Confirm</a>
+		</div>
 	</div>
 </div>
