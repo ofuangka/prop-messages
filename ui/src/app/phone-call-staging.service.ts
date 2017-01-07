@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Conversation } from './domain/conversation';
 
 @Injectable()
 export class PhoneCallStagingService {
@@ -9,10 +10,10 @@ export class PhoneCallStagingService {
 
 	constructor(private router: Router) { }
 
-	stagePhoneCall(from: string, ms: number) {
+	stagePhoneCall(conversation: Conversation, ms: number) {
 		clearTimeout(this.timer);
-		this.from = from;
-		this.timer = setTimeout(() => this.router.navigate(['/phone-call']), ms);
+		this.from = conversation.to;
+		this.timer = setTimeout(() => this.router.navigate(['/phone-call', conversation.id]), ms);
 	}
 
 }

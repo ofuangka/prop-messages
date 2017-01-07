@@ -78,7 +78,7 @@
 <div *ngIf="showPhoneConfirm" class="alert-background">
 	<div class="alert">
 		<h3 class="alert-title">Receive Phone Call from "{{ conversation ? conversation.to : '...' }}"?</h3>
-		<p class="alert-content">You will receive a phone call in 10 seconds. This will override any phone calls in progress.</p>
+		<p class="alert-content">You will receive a phone call in {{ (phoneDelayMs / 1000) | number}} seconds. This will override any phone calls in progress.</p>
 		<div class="alert-controls">
 			<a (click)="showPhoneConfirm = false" class="btn">Cancel</a>
 			<a (click)="confirmPhoneCall()" class="btn">Confirm</a>

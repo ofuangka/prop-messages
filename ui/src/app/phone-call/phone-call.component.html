@@ -1,54 +1,62 @@
 <div class="phone-call">
-	<h2>{{ caller }}</h2>
-	<small>{{ isSpeaking ? elapsedTime : 'mobile'}}</small>
-	<div class="phone-controls">
-		<div *ngIf="isSpeaking" class="row">
-			<div class="icon-above-text">
-				<i class="mute circular"></i>
-				<p>mute</p>
+	<div class="caller">
+		<h2>{{ caller }}</h2>
+		<small>{{ 'mobile' }}</small>
+	</div>
+	<div class="center">
+		<div class="call-controls" *ngIf="isAnswered">
+			<div class="column">
+				<div class="btn">
+					<i class="mute circle"></i>
+					<label>mute</label>
+				</div>
+				<div class="btn">
+					<i class="add-call circle"></i>
+					<label>add call</label>
+				</div>
 			</div>
-			<div class="icon-above-text">
-				<i class="keypad circular"></i>
-				<p>keypad</p>
+			<div class="column">
+				<div class="btn">
+					<i class="keypad circle"></i>
+					<label>keypad</label>
+				</div>
+				<div class="btn">
+					<i class="facetime circle"></i>
+					<label>FaceTime</label>
+				</div>
 			</div>
-			<div class="icon-above-text">
-				<i class="speaker circular"></i>
-				<p>speaker</p>
-			</div>
-		</div>
-		<div *ngIf="isSpeaking" class="row">
-			<div class="icon-above-text">
-				<i class="add-call circular"></i>
-				<p>add call</p>
-			</div>
-			<div class="icon-above-text">
-				<i class="facetime circular"></i>
-				<p>FaceTime</p>
-			</div>
-			<div class="icon-above-text">
-				<i class="contacts circular"></i>
-				<p>contacts</p>
+			<div class="column">
+				<div class="btn">
+					<i class="speaker circle"></i>
+					<label>speaker</label>
+				</div>
+				<div class="btn">
+					<i class="contacts circle"></i>
+					<label>contacts</label>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div *ngIf="!isSpeaking" class="phone-alternatives">
-		<div class="icon-above-text">
-			<i class="remind-me"></i>
-			<p>Remind Me</p>
+	<div class="bottom">
+		<div class="left">
+			<div class="btn" *ngIf="!isAnswered">
+				<i class="clock glyph"></i>
+				<label>Remind Me</label>
+			</div>
+			<div class="btn" (click)="goBack()">
+				<i class="decline circle"></i>
+				<label *ngIf="!isAnswered">Decline</label>
+			</div>
 		</div>
-		<div class="icon-above-text">
-			<i class="message-caller"></i>
-			<p>Message</p>
-		</div>
-	</div>
-	<div class="phone-actions">
-		<div class="icon-above-text" (click)="goBack()">
-			<i class="hang-up circular"></i>
-			<p>Decline</p>
-		</div>
-		<div *ngIf="!isSpeaking" (click)="isSpeaking = true" class="icon-above-text">
-			<i class="answer circular"></i>
-			<p>Accept</p>
+		<div class="right" *ngIf="!isAnswered">
+			<div class="btn">
+				<i class="conversation glyph"></i>
+				<label>Message</label>
+			</div>
+			<div class="btn" (click)="isAnswered = true">
+				<i class="accept circle"></i>
+				<label>Accept</label>
+			</div>
 		</div>
 	</div>
 </div>

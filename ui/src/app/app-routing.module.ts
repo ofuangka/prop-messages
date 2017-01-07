@@ -8,7 +8,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/conversations', pathMatch: 'full' },
     { path: 'conversations', component: ConversationListComponent },
     { path: 'conversations/:conversationId', component: MessagesComponent },
-    { path: 'phone-call', component: PhoneCallComponent }
+    { path: 'phone-call/:conversationId', component: PhoneCallComponent }
 ];
 
 @NgModule({

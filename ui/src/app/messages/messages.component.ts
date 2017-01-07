@@ -6,6 +6,8 @@ import { MessageService } from '../message.service';
 import { Message } from '../domain/message';
 import { PhoneCallStagingService } from '../phone-call-staging.service';
 
+const DEFAULT_PHONE_DELAY_MS = 5000;
+
 @Component({
 	selector: 'prop-messages-messages',
 	templateUrl: './messages.component.html',
@@ -31,6 +33,7 @@ export class MessagesComponent implements OnInit {
 	messagesToMove: Message[] = [];
 	isLoadingMessages: boolean;
 	showPhoneConfirm = false;
+	phoneDelayMs = DEFAULT_PHONE_DELAY_MS;
 
 	constructor(
 		private messageService: MessageService,
@@ -205,7 +208,7 @@ export class MessagesComponent implements OnInit {
 	}
 
 	confirmPhoneCall() {
-		this.phoneCallStagingService.stagePhoneCall(this.conversation.to, 10000);
+		this.phoneCallStagingService.stagePhoneCall(this.conversation, this.phoneDelayMs);
 		this.showPhoneConfirm = false;
 	}
 
