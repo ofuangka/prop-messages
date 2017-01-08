@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    cursor: default;
+}
 html, body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 12pt;
@@ -7,7 +10,6 @@ html, body {
 }
 a {
     color: rgb(0, 124, 251);
-    cursor: pointer;
     text-decoration: none;
 }
 i {

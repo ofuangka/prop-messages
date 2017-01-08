@@ -34,6 +34,7 @@ export class MessagesComponent implements OnInit {
 	isLoadingMessages: boolean;
 	showPhoneConfirm = false;
 	phoneDelayMs = DEFAULT_PHONE_DELAY_MS;
+	isConversationDirty = false;
 
 	constructor(
 		private messageService: MessageService,
@@ -190,13 +191,17 @@ export class MessagesComponent implements OnInit {
 		return Math.max(Math.random() * maxMs, minMs);
 	}
 
-	saveConversation(to: string, useImessage: boolean) {
-		this.isSavingConversation = true;
-		this.conversationService.update(Object.assign({}, this.conversation, { to: this.editTo, protocol: this.editImessage ? 'imessage' : 'sms' })).then((conversation) => {
-			this.conversation = conversation;
+	saveConversation() {
+		if (this.isConversationDirty) {
+			this.isSavingConversation = true;
+			this.conversationService.update(Object.assign({}, this.conversation, { to: this.editTo, protocol: this.editImessage ? 'imessage' : 'sms' })).then((conversation) => {
+				this.conversation = conversation;
+				this.showEditConversation = false;
+				this.isSavingConversation = false;
+			});
+		} else {
 			this.showEditConversation = false;
-			this.isSavingConversation = false;
-		});
+		}
 	}
 
 	isDeletingMessage(message: Message): boolean {
@@ -211,6 +216,10 @@ export class MessagesComponent implements OnInit {
 		this.phoneCallStagingService.stagePhoneCall(this.conversation, this.phoneDelayMs);
 		this.showPhoneConfirm = false;
 		this.showEditConversation = false;
+	}
+
+	testAndSetDirty() {
+		this.isConversationDirty = (this.editTo !== this.conversation.to) || (this.editImessage !== (this.conversation.protocol === 'imessage'));
 	}
 
 }

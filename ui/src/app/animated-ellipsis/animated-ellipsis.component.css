@@ -7,9 +7,9 @@ div {
 i {
     background-color: rgb(190, 190, 196);
     border-radius: 9999px;
-    height: 10px;
-    margin-right: 2px;
-    width: 10px;
+    height: 8px;
+    margin-right: 4px;
+    width: 8px;
 }
 i:last-child {
     margin-right: 0;

@@ -9,6 +9,7 @@
 .phone-call h2 {
     font-size: 2em;
     font-weight: 100;
+    margin-bottom: 10px;
 }
 .glyph {
     background-color: white;
@@ -25,8 +26,8 @@
 .circle {
     border: 1px solid white;
     border-radius: 9999px;
-    height: 75px;
-    width: 75px;
+    height: 70px;
+    width: 70px;
 }
 .decline {
     border: none;

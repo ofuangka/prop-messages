@@ -4,7 +4,7 @@ import { ConversationService } from '../conversation.service';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'prop-messages-conversation-list',
+	selector: 'conversation-list',
 	templateUrl: './conversation-list.component.html',
 	styleUrls: ['./conversation-list.component.css']
 })

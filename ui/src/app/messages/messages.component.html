@@ -6,7 +6,7 @@
 		<anonymous size="40" [initials]="conversation.to | initials"></anonymous><small class="thin">{{ conversation.to ? (conversation.to | whom) : '...' }}</small>
 	</div>
 	<a *ngIf="!conversation.to" class="text-right"></a>
-	<a *ngIf="conversation.to" class="text-right" (click)="editTo = conversation.to; editImessage = conversation.protocol === 'imessage'; showEditConversation = true"><strong class="fancy-letter">i</strong></a>
+	<a *ngIf="conversation.to" class="text-right" (click)="editTo = conversation.to; editImessage = conversation.protocol === 'imessage'; isConversationDirty = false; showEditConversation = true"><strong class="fancy-letter">i</strong></a>
 </header>
 <div class="below-header-lg">
 	<div *ngIf="isLoadingMessages" class="spinner">
@@ -46,22 +46,22 @@
 	</div>
 </footer>
 <footer *ngIf="selectedMessage" class="toolbar">
-	<i class="rewind icon" [ngClass]="{'disabled': isDeletingMessage(message) || isPlayback()}" (click)="!isDeletingMessage(message) && isRecording() && rewind(selectedMessage)">&laquo;</i>
-	<i class="move icon" [ngClass]="{'left': selectedMessage.outbound, 'disabled': isDeletingMessage(message) || isMovingMessage(message) || isPlayback()}"
-		(click)="!isDeletingMessage(message) && !isMovingMessage(message) && isRecording() && toggleOutbound(selectedMessage)">&lsaquo;&rsaquo;</i>
-	<i class="delete icon" [ngClass]="{'disabled': isDeletingMessage(message) || isPlayback()}" (click)="!isDeletingMessage(message) && isRecording() && deleteMessage(selectedMessage)">x</i>
+	<i class="rewind icon" [ngClass]="{'disabled': isDeletingMessage(selectedMessage) || isPlayback()}" (click)="!isDeletingMessage(selectedMessage) && isRecording() && rewind(selectedMessage)">&laquo;</i>
+	<i class="move icon" [ngClass]="{'left': selectedMessage.outbound, 'disabled': isDeletingMessage(selectedMessage) || isMovingMessage(selectedMessage) || isPlayback()}"
+		(click)="!isDeletingMessage(selectedMessage) && !isMovingMessage(selectedMessage) && isRecording() && toggleOutbound(selectedMessage)">&lsaquo;&rsaquo;</i>
+	<i class="delete icon" [ngClass]="{'disabled': isDeletingMessage(selectedMessage) || isPlayback()}" (click)="!isDeletingMessage(selectedMessage) && isRecording() && deleteMessage(selectedMessage)">x</i>
 </footer>
 <div class="modal" *ngIf="showEditConversation">
 	<header>
 		<a (click)="showEditConversation = false">Cancel</a>
 		<h3><strong>Details</strong></h3>
-		<a *ngIf="!isSavingConversation" (click)="saveConversation(editTo, editImessage)" class="text-right">Done</a>
+		<a *ngIf="!isSavingConversation" (click)="saveConversation()" class="text-right">Done</a>
 		<a *ngIf="isSavingConversation" class="text-right">Saving...</a>
 	</header>
 	<div class="below-header-sm">
 		<div id="to">
 			<label>To:</label>
-			<input #to class="to-item" [(ngModel)]="editTo" />
+			<input #to class="to-item" [(ngModel)]="editTo" (change)="testAndSetDirty()" />
 			<i class="phone" (click)="showPhoneConfirm = true"></i>
 		</div>
 		<ul class="ui-table-view">
@@ -69,7 +69,7 @@
 				<a class="gutter-link"></a>
 				<div class="row setting">
 					<label>iMessage</label>
-					<i [ngClass]="{'switch': true, 'on': editImessage}" (click)="editImessage = !editImessage"><i class="peg"></i></i>
+					<i [ngClass]="{'switch': true, 'on': editImessage}" (click)="editImessage = !editImessage; testAndSetDirty()"><i class="peg"></i></i>
 				</div>
 			</li>
 		</ul>
