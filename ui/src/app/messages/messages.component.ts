@@ -210,6 +210,7 @@ export class MessagesComponent implements OnInit {
 	confirmPhoneCall() {
 		this.phoneCallStagingService.stagePhoneCall(this.conversation, this.phoneDelayMs);
 		this.showPhoneConfirm = false;
+		this.showEditConversation = false;
 	}
 
 }
