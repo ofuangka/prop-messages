@@ -11,7 +11,9 @@
 			<div class="row">No messages</div>
 		</li>
 		<li *ngFor="let conversation of conversations" (click)="!isEditing && goToMessages(conversation)">
-			<a (click)="isEditing && !isDeletingConversation(conversation) && delete(conversation)" class="gutter-link" [ngClass]="{'disabled': isDeletingConversation(conversation)}"><i *ngIf="isEditing" class="delete">x</i></a>
+			<a (click)="isEditing && !isDeletingConversation(conversation) && delete(conversation)" class="gutter-link" [ngClass]="{'disabled': isDeletingConversation(conversation)}">
+				<i *ngIf="isEditing" [@editingState]="isEditing ? 'isEditing' : 'isNotEditing'" class="delete">x</i>
+			</a>
 			<div class="row">
 				<anonymous [size]="40" [initials]="conversation.to | initials"></anonymous>
 				<div class="conversation-summary">
@@ -29,7 +31,7 @@
 		<animated-ellipsis></animated-ellipsis>
 	</div>
 </section>
-<div class="modal" *ngIf="showNewConversation">
+<div class="modal" *ngIf="showNewConversation" [@modalState]="(showNewConversation) ? 'isShowing' : 'isNotShowing'">
 	<header>
 		<a (click)="useImessage = false; showNewConversation = false">Cancel</a>
 		<h3><strong>New Message</strong></h3>

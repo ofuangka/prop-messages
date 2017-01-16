@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, trigger, state, style, transition, animate } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ConversationService } from '../conversation.service';
 import { Conversation } from '../domain/conversation';
@@ -11,7 +11,84 @@ const DEFAULT_PHONE_DELAY_MS = 5000;
 @Component({
 	selector: 'prop-messages-messages',
 	templateUrl: './messages.component.html',
-	styleUrls: ['./messages.component.css']
+	styleUrls: ['./messages.component.css'],
+	animations: [
+		trigger('visibleState', [
+			state('visible', style({
+				transform: 'translateX(0)'
+			})),
+			transition('void => visible', [
+				style({
+					transform: 'translateX(100%)'
+				}),
+				animate('400ms cubic-bezier(0.19, 1, 0.22, 1)')
+			]),
+			transition('visible => void', animate('400ms cubic-bezier(0.19, 1, 0.22, 1)', style({
+				transform: 'translateX(100%)'
+			})))
+		]),
+		trigger('messageState', [
+			state('visible', style({
+				opacity: 1
+			})),
+			transition('void => visible', [
+				style({
+					opacity: 0
+				}),
+				animate('100ms')
+			]),
+			transition('visible => void', animate('100ms', style({
+				opacity: 0
+			})))
+		]),
+		trigger('ellipsisState', [
+			state('visible', style({
+				opacity: 1
+			})),
+			transition('void => visible', [
+				style({
+					opacity: 0
+				}),
+				animate('100ms')
+			])
+		]),
+		trigger('modalState', [
+			state('isShowing', style({
+				transform: 'translateY(0)'
+			})),
+			transition('void => isShowing', [
+				style({
+					transform: 'translateY(100%)'
+				}),
+				animate('400ms cubic-bezier(0.19, 1, 0.22, 1)')
+			]),
+			transition('isShowing => void', [
+				animate('100ms ease-in', style({
+					transform: 'translateY(100%)'
+				}))
+			])
+		]),
+		trigger('inboundState', [
+			state('inbound', style({
+				transform: 'translateX(0)'
+			})),
+			state('outbound', style({
+				transform: 'translateX(0)'
+			})),
+			transition('inbound => outbound', [
+				style({
+					transform: 'translateX(-100%)'
+				}),
+				animate('100ms cubic-bezier(0.19, 1, 0.22, 1)')
+			]),
+			transition('outbound => inbound', [
+				style({
+					transform: 'translateX(100%)'
+				}),
+				animate('100ms cubic-bezier(0.19, 1, 0.22, 1)')
+			])
+		])
+	]
 })
 export class MessagesComponent implements OnInit {
 	conversation: Conversation = { id: '', to: '', createdTs: 0, lastUpdatedTs: 0, createdBy: '', protocol: '' };

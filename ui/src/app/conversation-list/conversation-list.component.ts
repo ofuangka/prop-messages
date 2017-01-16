@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, trigger, state, style, transition, animate } from '@angular/core';
 import { Conversation } from '../domain/conversation';
 import { ConversationService } from '../conversation.service';
 import { Router } from '@angular/router';
@@ -6,7 +6,38 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'conversation-list',
 	templateUrl: './conversation-list.component.html',
-	styleUrls: ['./conversation-list.component.css']
+	styleUrls: ['./conversation-list.component.css'],
+	animations: [
+		trigger('editingState', [
+			state('isEditing', style({
+				opacity: 1,
+				transform: 'translateX(0)'
+			})),
+			transition('void => isEditing', [
+				style({
+					opacity: 0,
+					transform: 'translateX(-100%)'
+				}), 
+				animate('500ms cubic-bezier(0.19, 1, 0.22, 1)')
+			])
+		]),
+		trigger('modalState', [
+			state('isShowing', style({
+				transform: 'translateY(0)'
+			})),
+			transition('void => isShowing', [
+				style({
+					transform: 'translateY(100%)'
+				}),
+				animate('400ms cubic-bezier(0.19, 1, 0.22, 1)')
+			]),
+			transition('isShowing => void', [
+				animate('100ms ease-in', style({
+					transform: 'translateY(100%)'
+				}))
+			])
+		])
+	]
 })
 export class ConversationListComponent implements OnInit {
 	isLoading = true;

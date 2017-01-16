@@ -1,5 +1,5 @@
 <div>
-	<i [ngClass]="{'active': active === 0}"></i>
-	<i [ngClass]="{'active': active === 1}"></i>
-	<i [ngClass]="{'active': active === 2}"></i>
+	<i [ngClass]="{'active': active === 0}" [@activeState]="active === 0 ? 'active' : 'inactive'"></i>
+	<i [ngClass]="{'active': active === 1}" [@activeState]="active === 1 ? 'active' : 'inactive'"></i>
+	<i [ngClass]="{'active': active === 2}" [@activeState]="active === 2 ? 'active' : 'inactive'"></i>
 </div>
